@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training GPT from Scratch on a MacBook | Abinash Karki Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">Abinash Karki Blog</a>
+            <!-- <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#blog">Blog</a>
+                <a href="#contact">Contact</a>
+            </div> -->
+        </nav>
+    </header>
+
+    <main class="container">
+        <article class="blog-post">
+            <h1>Training GPT from Scratch on a MacBook: Harnessing Apple Silicon with MPS</h1>
+            <p class="publication-date">Published on August 15, 2024</p>
+
+            <section>
+                <h2>Introduction</h2>
+                <p>Have you ever wondered if your MacBook could handle training a sophisticated language model like GPT (Generative Pre-trained Transformer)? Traditionally, such tasks have been the domain of powerful GPUs and expansive cloud infrastructures. However, with Apple's Metal Performance Shaders (MPS), we can now leverage the power of Apple Silicon to perform demanding machine learning tasks on consumer-grade hardware.</p>
+                <p>This blog post will guide you through the process of training a scaled-down version of GPT on a MacBook, using PyTorch with MPS. Whether you're a junior developer, an ML enthusiast, or simply curious about the capabilities of your MacBook, this guide will show you what's possible with consumer hardware.</p>
+                <p>Our approach is inspired by Andrej Karpathy's excellent tutorial on building GPT from scratch. We'll be using a similar model architecture and training process, adapted for use with MPS on a MacBook. For those interested in diving deeper, I highly recommend checking out <a href="#">Andrej Karpathy's awesome tutorial</a> and the full code for this project on <a href="#">GitHub</a>.</p>
+            </section>
+
+            <section>
+                <h2>Understanding Metal Performance Shaders (MPS)</h2>
+                <p>Metal Performance Shaders (MPS) is a framework developed by Apple that allows developers to harness the power of Apple Silicon for computational tasks, including machine learning. It's designed to work seamlessly with Apple's GPU architecture, providing optimized performance for various algorithms commonly used in machine learning and computer vision.</p>
+                <p>One of the key advantages of Apple Silicon is its unified memory architecture. Unlike traditional setups where CPU and GPU have separate memory, Apple Silicon shares memory between the two. This means that for machine learning tasks, you essentially have access to more memory compared to standard GPUs of similar specifications.</p>
+                <div class="image-container hero-image">
+                    <img src="images/Traditional_architecture_VS_unified_memory.png" alt="Traditional GPU vs Apple Silicon Unified Memory" class="hero-image">
+                    <p class="big-image-caption">Figure 1: Comparision of Traditional GPU vs Apple Silicon Unified Memory</p>
+                </div>
+                <div class="clearfix"></div>
+            </section>
+
+            <section>
+                <h2>Setting Up the Environment</h2>
+                <p>To get started, we need to ensure our PyTorch installation supports MPS. As of the time of writing, MPS support in PyTorch is still in beta, but it's fully functional for many use cases. Here's how we set up our device:</p>
+                <pre><code>import torch
+
+device = torch.device('mps' if torch.backends.mps.is_built() else 'cpu')</code></pre>
+                <p>This code checks if MPS is available on your system and sets the device accordingly. If MPS is not available, it falls back to CPU. By using MPS, we're allowing PyTorch to leverage the GPU capabilities of our MacBook for faster computations.</p>
+            </section>
+
+            <section>
+                <h2>The Model: A Scaled-Down GPT</h2>
+                <p>For this project, we're implementing a scaled-down version of GPT. Here's a high-level overview of our model architecture:</p>
+                <pre><code>class BigramLanguageModel(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.token_embedding_table = nn.Embedding(vocab_size, n_embd)
+        self.position_embedding_table = nn.Embedding(block_size, n_embd)
+        self.blocks = nn.Sequential(*[Block(n_embd, n_head=n_head) for _ in range(n_layer)])
+        self.ln_f = nn.LayerNorm(n_embd)
+        self.lm_head = nn.Linear(n_embd, vocab_size)
+
+    # ... (forward and generate methods)</code></pre>
+                <p>This model includes token and positional embeddings, multiple transformer blocks, and a final layer norm and linear layer for output. When we move this model to the MPS device, all these layers will benefit from GPU acceleration, significantly speeding up both the forward and backward passes during training.</p>
+                <p>The model's architecture and hyperparameters are designed to be trainable on consumer hardware while still capturing the essence of larger language models. This balance allows us to explore the capabilities of our MacBook while leaving room for experimentation and fine-tuning.</p>
+            </section>
+
+            <section>
+                <h2>Leveraging MPS in Training</h2>
+                <p>The key to utilizing MPS effectively is ensuring all our tensors and models are on the MPS device. Here's how we do this in our training loop:</p>
+                <pre><code>model = BigramLanguageModel()
+m = model.to(device)  # Move the model to MPS device
+
+for iter in range(max_iters):
+    xb, yb = get_batch('train')
+    xb, yb = xb.to(device), yb.to(device)  # Move input data to MPS device
+
+    logits, loss = m(xb, yb)
+    optimizer.zero_grad(set_to_none=True)
+    loss.backward()
+    optimizer.step()</code></pre>
+                <p>Let's break down what's happening here:</p>
+                <ol>
+                    <li>We move the entire model to the MPS device. This ensures all model parameters are stored in GPU memory.</li>
+                    <li>For each training iteration, we move our input data (<code>xb</code> and <code>yb</code>) to the MPS device. This allows the forward pass to be computed entirely on the GPU.</li>
+                    <li>The forward pass (<code>m(xb, yb)</code>), loss computation, backward pass (<code>loss.backward()</code>), and parameter updates (<code>optimizer.step()</code>) are all performed on the GPU thanks to MPS.</li>
+                </ol>
+                <p>By leveraging MPS in this way, we're able to significantly speed up the training process compared to CPU-only training.</p>
+            </section>
+
+
+            <section>
+                <h2>Results and Performance</h2>
+                    <div class="image-container align-right">
+                        <img src="images/losses.jpg" alt="Screenshot of losses during training">
+                        <p class="image-caption">Figure 2: Screenshot of losses during training</p>
+                    </div>
+
+                    <p>Training this model on a MacBook with an M1 Pro chip and 16GB of RAM takes about 1 Hour 20 minutes, with GPU usage hovering around 92% - 18%. While this is slower than training on a high-end dedicated GPU, it's remarkably fast for a laptop given the size of the model and demonstrates the potential of Apple Silicon for machine learning tasks.</p>
+
+                    <div class="clearfix"></div>
+
+                    <div class="image-container align-right">
+                        <img src="images/output.jpg" alt="Sample of generated text">
+                        <p class="image-caption">Figure 3: Sample of Generated Text</p>
+                    </div>
+
+                    <p>The generated text, while not perfect, shows clear signs of learning Shakespeare's style and language patterns, which is impressive for a model trained on consumer hardware.</p>
+
+                    <div class="clearfix"></div>
+                <!-- <h2>Results and Performance</h2>
+
+                <div class="image-container align-right">
+                    <img src="images/losses.jpg" alt="Screenshot of GPU usage during training">
+                    <p class="image-caption">Figure 2: GPU Usage During Training</p>
+                </div>
+
+                <p>Training this model on a MacBook with an M1 Pro chip and 16GB of RAM takes about 1 Hour 20 minutes, with GPU usage hovering around 92% - 18%. While this is slower than training on a high-end dedicated GPU, it's remarkably fast for a laptop given the size of the model and demonstrates the potential of Apple Silicon for machine learning tasks.</p>
+
+                <div class="clearfix"></div>
+
+                <div class="image-container align-right">
+                    <img src="images/output.jpg" alt="Sample of generated text">
+                    <p class="image-caption">Figure 3: Sample of Generated Text</p>
+                </div>
+
+                <p>The generated text, while not perfect, shows clear signs of learning Shakespeare's style and language patterns, which is impressive for a model trained on consumer hardware.</p>
+
+                <div class="clearfix"></div>               -->
+            </section>
+
+            <section>
+                <h2>Limitations and Future Potential</h2>
+                <p>It's important to note that MPS is still in beta, and not all PyTorch operations are currently supported. However, as both the hardware and software continue to improve, we can expect even better performance and wider support in the future.</p>
+                <p>The unified memory architecture of Apple Silicon provides unique advantages for certain types of ML workloads, but it's not a direct replacement for high-end dedicated GPUs. It excels in providing accessible ML capabilities on consumer hardware, which is perfect for learning, prototyping, and small to medium-scale projects.</p>
+            </section>
+
+            <section>
+                <h2>Conclusion</h2>
+                <p>Training a scaled-down GPT model on a MacBook using Apple Silicon and Metal Performance Shaders (MPS) showcases the impressive capabilities of consumer-grade hardware in machine learning. Completing this task in just about 1 hour and 20 minutes on an M1 Pro chip demonstrates that complex ML projects are no longer confined to high-end GPUs or cloud services. This accessibility opens up new possibilities for rapid prototyping, cost-effective learning, and experimentation for developers, researchers, and ML enthusiasts alike.</p>
+                <p>While MPS is still in beta and doesn't match the performance of high-end dedicated GPUs for large-scale models, the future looks promising. As Apple Silicon and MPS continue to evolve, we can expect improved performance and wider support for ML operations, potentially narrowing the gap between consumer hardware and specialized ML infrastructure for certain tasks.</p>
+                <p>For those inspired by this project, I encourage you to experiment with the code provided in the GitHub repository. Try adjusting the model architecture, exploring different datasets, or even attempting to train other types of models using MPS. Whether you're a seasoned ML practitioner or a curious beginner, your MacBook might be more powerful than you think. The world of ML on consumer hardware is getting ripe for exploration – happy coding!</p>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-section">
+                <h3>Find Me Here</h3>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/abinashkarki/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/abinashkarki" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://x.com/abeenax" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2024 Abinash Karki. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</body>
+</html>
