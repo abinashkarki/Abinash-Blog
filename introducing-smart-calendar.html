@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducing Smart Calendar: Simplifying Scheduling with Natural Language | Abinash Karki Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">Abinash Karki Blog</a>
+            <!-- <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#blog">Blog</a>
+                <a href="#contact">Contact</a>
+            </div> -->
+        </nav>
+    </header>
+
+    <main class="container">
+        <article class="blog-post">
+            <h1>Introducing Smart Calendar: Simplifying Scheduling with Natural Language</h1>
+            <p class="publication-date">Published on September 19, 2024</p>
+
+            <section>
+                <img src="images/smartcalendar_smart_request.jpg" alt="Smart Calendar Interface" class="hero-image">
+                <p>Traditional calendar apps often require us to adapt to their predefined interfaces and workflows, which can be a hurdle when all you want is to organize your day effortlessly. I didn't feel overwhelmed by these applications; I simply didn't want to spend time learning their UI and UX. I wanted a calendar that was intuitive from the get-go—a tool designed around <strong>my</strong> way of planning. That's why I created <strong>Smart Calendar</strong>, an app where I crafted the user experience to fit my needs perfectly. It's so straightforward that you can choose not to learn anything at all and let the AI handle your scheduling for you.</p>
+            </section>
+
+            <section>
+                <h2>The Inspiration Behind Smart Calendar</h2>
+                <p>The idea stemmed from a personal need for a calendar app that didn't require a steep learning curve. I wanted a system that was not only intuitive but also tailored to my specific needs. Traditional calendars felt rigid, often forcing me to adapt to their structures rather than accommodating my preferences. With Smart Calendar, I aimed to flip that dynamic, creating a tool that molds itself around the user's natural way of planning.</p>
+            </section>
+
+            <section>
+                <h2>Key Features That Set Smart Calendar Apart</h2>
+                <ul>
+                    <li><strong>Natural Language Processing</strong>: Instead of manually entering events, you can simply type or say something like, "Next week, I'm going to work 9 to 5 Monday to Wednesday and 5 to 9 Thursday and Friday." The app intelligently parses this request, determines the correct dates and times, and schedules the events accordingly.</li>
+                    <li><strong>Interactive Grid Interface</strong>: Each hour of the day is represented by a grid on the calendar. Events that are less than an hour or not in whole-hour increments visually occupy the appropriate fraction of the grid. For example, a 30-minute meeting from 3:00 to 3:30 PM will fill half of the hour slot, providing a clear visual representation of your schedule.</li>
+                    <li><strong>Flexibility in Event Management</strong>: You can still create, modify, or delete events manually if you prefer. The combination of natural language input and manual control offers the best of both worlds, catering to various user preferences.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>How Smart Calendar Handles Natural Language</h2>
+                <p>One of the biggest challenges was enabling the app to interpret and act on complex, natural language requests effectively. Initially, I implemented chain-of-thought reasoning with few-shot examples to guide the large language model (LLM). However, this approach had limitations. The model tended to closely mimic the provided examples, which were not diverse enough to cover the wide range of potential user inputs. This often led to the model falling into "local minima," where it would execute tasks without fully reasoning through complex or nuanced requests.</p>
+                <p>An enlightening moment came from listening to a podcast by the Anthropic team on prompt engineering. They discussed how, in complex tasks, explicitly providing detailed examples can inadvertently constrain the model's reasoning abilities. Instead of deeply processing the input, the model might default to following the examples, which can hinder performance when handling variations or unforeseen scenarios.</p>
+                <p>Realizing this, I decided to simplify the prompts by removing the few-shot examples and relying more on the model's inherent intelligence. By providing concise, clear instructions without overloading it with specific examples, the model began to utilize its full reasoning capabilities. This approach allowed Smart Calendar to better understand and execute a wide array of complex, natural language requests.</p>
+                <p>While it might seem counterintuitive, trusting the model to infer and reason led to significantly improved outcomes. I considered expanding the set of examples to make them more diverse, but this would have increased the prompt size and computational overhead. Simplifying the prompt not only enhanced performance but also made the system more efficient.</p>
+                <p>I also experimented with different language models, including the LLaMA 70B model. Although promising, it didn't handle multiple function calls as effectively as GPT-4, which demonstrated exceptional capabilities in processing complex scheduling tasks.</p>
+
+                <h3>Prompt Engineering Insights</h3>
+                <p>This journey underscored a valuable lesson in prompt engineering: sometimes, less is more. For complex applications, allowing the model to exercise its reasoning abilities without being confined to a narrow set of examples can lead to more accurate and generalizable results. By refining the prompt to be concise yet informative, I harnessed the full potential of the LLM, making Smart Calendar a powerful tool for natural language scheduling.</p>
+            </section>
+
+            <section>
+                <h2>The Technology Stack: Leveraging FastHTML and More</h2>
+                <p>I chose to build Smart Calendar using <strong>FastHTML</strong>, a Python-based framework optimized for single-page applications. FastHTML streamlined the development process by handling views, routing, and templates intuitively. It allowed me to write HTML, CSS, and even JavaScript in a Pythonic way, making the codebase easier to maintain and debug.</p>
+                <p>Other tools and technologies involved:</p>
+                <ul>
+                    <li><strong>LlamaIndex</strong>: Utilized for the LLM integration, facilitating natural language understanding and processing.</li>
+                    <li><strong>Custom-Built Calendar Interface</strong>: The calendar was developed from scratch to meet specific requirements and provide an optimal user experience.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Overcoming Development Challenges</h2>
+                <p>Developing Smart Calendar was an extensive project, culminating in over 1,200 lines of code. Managing such a large single-page application presented its own set of challenges. Although FastHTML greatly simplified many aspects, there were times when documentation was insufficient for complex features. In those moments, I relied on experimentation—testing different approaches until I found solutions that worked effectively.</p>
+                <p>This iterative process not only resolved immediate issues but also deepened my understanding of the framework, allowing me to utilize it more efficiently in future developments.</p>
+            </section>
+
+            <section>
+                <h2>Future Plans and How You Can Get Involved</h2>
+                <p>While Smart Calendar currently fulfills my personal scheduling needs, I'm eager to refine and expand it based on user feedback. Your insights could help shape future features, making the app even more versatile and user-friendly.</p>
+
+                <h3>Call to Action</h3>
+                <ul>
+                    <li><strong>Try It Out</strong>: Visit the <a href="https://smartcalendar.pro/">Smart Calendar website</a> to experience it firsthand.</li>
+                    <li><strong>Explore the Code</strong>: Check out the <a href="https://github.com/abinashkarki/SmartCalendar">GitHub repository</a> to dive into the codebase.</li>
+                    <li><strong>Learn About FastHTML</strong>: If you're intrigued by the technology stack, explore <a href="https://docs.fastht.ml/">FastHTML</a> and consider building your own applications.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Personal Reflections</h2>
+                <p>Embarking on this project was a journey of discovery and growth. I began without a detailed roadmap, but as development progressed, the application's specifications and potential became clearer. It was a process of building, testing, and refining—allowing the project to evolve organically based on practical needs and challenges encountered along the way.</p>
+            </section>
+
+            <section>
+                <h2>Conclusion</h2>
+                <p>Smart Calendar represents a fusion of simplicity and sophistication, leveraging advanced technology to make scheduling effortless. By embracing natural language processing and intuitive design, it transforms how we interact with our calendars. I'm thrilled to share this tool with you and look forward to seeing how it can enhance your daily planning.</p>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-section">
+                <h3>Find Me Here</h3>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/abinashkarki/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/abinashkarki" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://x.com/abeenax" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2024 Abinash Karki. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</body>
+</html>
