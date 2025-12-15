@@ -3,102 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abinash Karki Blog</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <title>Abinash Karki — Building in the Symbiotic Age</title>
+    <meta name="description" content="Exploring the journey of human-AI collaboration. Thoughts on machine learning, vibe coding, and building real products.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css?v=9">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Header -->
     <header>
         <nav class="container">
-            <a href="#" class="logo">Abinash Karki Blog</a>
-            <!-- <div class="nav-links">
-                <a href="#latest-posts">Latest Posts</a>
+            <a href="index.html" class="logo">Abinash<span>.</span></a>
+            <div class="nav-links">
+                <a href="#articles">Articles</a>
                 <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-            </div> -->
+                <a href="https://github.com/abinashkarki" target="_blank">GitHub</a>
+            </div>
         </nav>
     </header>
 
     <main>
+        <!-- Hero Section -->
         <section class="hero">
             <div class="container">
-                <h1>Learning Machine Learning</h1>
-                <p>This blog shares my best articles on the ins and outs of machine learning and AI. The articles are written to make the topics intuitive to understand. Whether you're a beginner eager to dive into the world of AI or a seasoned professional looking for new insights, you'll find content that simplifies complex ideas and makes cutting-edge developments accessible.</p>
-            </div>
-        </section>
-
-        <section id="latest-posts" class="section">
-            <div class="container">
-                <div class="content-split">
-                    <div class="text-content">
-                        <h2>Latest Articles</h2>
-                        <p>Dive into my most recent explorations in machine learning and AI. Each post is crafted to provide you with valuable insights and practical knowledge.</p>
-                        <a href="#" class="cta-button">View All Articles</a>
-                    </div>
-                    <div class="card-stack-wrapper">
-                        <div class="card-stack">
-                            <div class="card">
-                                <h3>Vibe Coding: The Journey of Building Software with AI Assistance</h3>
-                                <p>Exploring the symbiotic relationship between developers and AI tools, from tutorials to production.</p>
-                                <a href="https://abinashkarki.github.io/Abinash-Blog/vibe-coding-journey.html" class="read-more">Read More</a>
-                            </div>
-                            <div class="card">
-                                <h3>Training GPT from Scratch on a MacBook</h3>
-                                <p>Explore the process of training a GPT model using Apple's Metal Performance Shaders.</p>
-                                <a href="gpt_mac.html" class="read-more">Read More</a>
-                            </div>
-                            <div class="card">
-                                <h3>Introducing Smart Calendar</h3>
-                                <p>A Simplifying Scheduling with Natural Language.</p>
-                                <a href="https://abinashkarki.github.io/Abinash-Blog/introducing-smart-calendar.html#" class="read-more">Read More</a>
-                            </div>
-<!--                             <div class="card">
-                                <h3>Ethical Considerations in AI Development</h3>
-                                <p>Examining the moral implications of advanced AI systems.</p>
-                                <a href="#" class="in-progress">in progress..</a>
-                            </div> -->
-                        </div>
-                        <div class="scroll-indicator">
-                            <span class="dot active"></span>
-                            <span class="dot"></span>
-                            <span class="dot"></span>
-                        </div>
+                <div class="hero-content">
+                    <h1>
+                        Exploring the intersection of <mark class="hero-highlight">code</mark> and curiosity.
+                    </h1>
+                    <p class="tagline">
+                        Documenting the journey of building software with AI assistance, understanding deep learning,
+                        and sharing personal growth experiments.
+                    </p>
+                    
+                    <div class="hero-cta">
+                        <a href="#articles" class="btn btn-primary">
+                            <i class="fas fa-book-open"></i>
+                            Read Articles
+                        </a>
+                        <a href="#about" class="btn btn-secondary">
+                            <i class="fas fa-user"></i>
+                            About Me
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Articles Section -->
+        <section id="articles" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <p class="section-label">Writing</p>
+                    <h2 class="section-title">Latest Explorations</h2>
+                </div>
+                
+                <div class="articles-grid">
+                    <!-- Featured Article -->
+                    <article class="article-card featured reveal">
+                        <div class="article-content">
+                            <span class="date">December 13, 2025</span>
+                            <h3>Vibe Coding: The Journey of Building Software with AI Assistance</h3>
+                            <p>
+                                What if you could describe the software you want, and a machine would build it 
+                                for you as you speak? Exploring the symbiotic relationship between developers 
+                                and AI tools, from tutorials to production.
+                            </p>
+                            <a href="vibe-coding-journey.html" class="read-more">Read Article</a>
+                        </div>
+                        <div class="article-image">
+                            <img src="images/Gemini_Generated_Image_6g65vc6g65vc6g65.png" alt="Vibe Coding Illustration">
+                        </div>
+                    </article>
+                    
+                    <!-- Regular Articles -->
+                    <article class="article-card reveal">
+                        <span class="date">August 15, 2024</span>
+                        <h3>Training GPT from Scratch on a MacBook</h3>
+                        <p>
+                            Exploring the process of training a GPT model using Apple's Metal Performance 
+                            Shaders. Consumer hardware is more powerful than you think.
+                        </p>
+                        <a href="gpt_mac.html" class="read-more">Read Article</a>
+                    </article>
+                    
+                    <article class="article-card reveal">
+                        <span class="date">September 19, 2024</span>
+                        <h3>Introducing Smart Calendar</h3>
+                        <p>
+                            A natural language calendar that molds itself around your way of planning. 
+                            Sometimes, less is more in prompt engineering.
+                        </p>
+                        <a href="introducing-smart-calendar.html" class="read-more">Read Article</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
         <section id="about" class="section">
             <div class="container">
-                <div class="content-split">
-                    <div class="text-content">
-                        <h2>About Me</h2>
-                        <p>I've created this space to share my insights and explorations. Here, you’ll find a blend of thoughtful reflections and discoveries as I navigate the vast world of AI. Whether it’s cutting-edge technology or foundational concepts, this blog captures my journey in understanding and appreciating the field.</p>
-                        <!-- <a href="#contact" class="cta-button">Let's Connect</a> -->
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2>Hi, I'm Abinash 👋</h2>
+                        <p class="lead">
+                            I'm a builder exploring the frontier of human-AI collaboration. 
+                            I believe in learning by doing, shipping real products, and 
+                            breadth creating depth.
+                        </p>
+                        <p>
+                            This blog is my digital notebook — a space to share insights from 
+                            navigating the vast world of AI. Whether it's training GPT on a MacBook, 
+                            building apps with natural language, or reflecting on what "vibe coding" 
+                            really means, I write to make complex ideas accessible.
+                        </p>
+                        <p>
+                            When I'm not coding, I'm probably thinking about the philosophical 
+                            implications of our tools becoming collaborators.
+                        </p>
+                        
+                        <div class="tech-tags">
+                            <span class="tech-tag">Machine Learning</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Swift</span>
+                            <span class="tech-tag">FastAPI</span>
+                            <span class="tech-tag">LLMs</span>
+                            <span class="tech-tag">iOS</span>
+                        </div>
                     </div>
-                    <div class="image-placeholder"></div>
+                    
+                    <div class="about-visual">
+                        <div class="orbit-container">
+                            <div class="orbit"></div>
+                            <div class="orbit"></div>
+                            <div class="orbit"></div>
+                            <div class="center-icon">🧠</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-section">
-                <h3>Find Me Here</h3>
-                <div class="social-icons">
-                    <a href="https://www.linkedin.com/in/abinashkarki/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://github.com/abinashkarki" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="https://x.com/abeenax" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Let's Connect</h3>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/in/abinashkarki/" target="_blank" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/abinashkarki" target="_blank" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="copyright">
-                © 2024 Abinash Karki. All rights reserved.
+                <p class="copyright">
+                    © 2024 Abinash Karki. Built with curiosity and AI assistance.
+                </p>
             </div>
         </div>
     </footer>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Scripts -->
     <script src="script.js"></script>
+    <script>
+        // Scroll reveal animation
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    el.classList.add('visible');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+        
+        // Header scroll effect
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
