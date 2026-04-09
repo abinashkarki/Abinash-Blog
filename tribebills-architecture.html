@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building TribeBills: Architecture of a Solo-Built Fintech Platform | Abinash Karki</title>
+    <meta name="description" content="A deep dive into the architecture of TribeBills — a multi-surface fintech platform built and operated by a single engineer. iOS, web, FastAPI, AI receipt parsing, and the decisions behind it all.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css?v=9">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">Abinash<span>.</span></a>
+            <div class="nav-links">
+                <a href="index.html#articles">Articles</a>
+                <a href="index.html#about">About</a>
+                <a href="https://github.com/abinashkarki" target="_blank">GitHub</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <article class="blog-post">
+            <h1>Building TribeBills: Architecture of a Solo-Built Fintech Platform</h1>
+            <p class="publication-date">Published on April 9, 2026</p>
+
+            <section>
+                <p>I've <a href="vibe-coding-journey.html">written before</a> about what it feels like to build software with AI — the symbiosis, the confidence, the occasional vertigo of having more power than you know what to do with. That essay was about the journey. This one is about what I actually built.</p>
+                <p><a href="https://tribebills.com" target="_blank" rel="noopener">TribeBills</a> is a group bill-splitting platform. Not a tutorial project, not a weekend hack — a multi-surface production system I designed, built, deployed, and operate entirely on my own. It handles shared expenses across groups: splitting bills, tracking payments, managing subscriptions, scanning receipts with AI, and coordinating across members with different devices and auth contexts.</p>
+                <p>This post is the technical architecture behind it. The decisions, the layers, the trade-offs — and what I learned from each.</p>
+            </section>
+
+            <section>
+                <h2>The System at a Glance</h2>
+                <p>TribeBills runs across three client surfaces and a shared backend. Two native-feeling frontends — an iOS app and a web app — both hitting the same API, sharing auth, billing, and data models. Beneath that: a FastAPI backend, PostgreSQL, an AI pipeline for receipt intelligence, Stripe for subscriptions, and the infrastructure to keep it all running on a single VPS.</p>
+                <div class="image-container">
+                    <a href="images/tribebills-architecture.png">
+                        <img src="images/tribebills-architecture.png" alt="TribeBills system architecture diagram showing Client Layer (iOS App and Web App), API Layer (FastAPI Backend), and Data & Services layer (PostgreSQL, AI/ML Pipeline, and Integrations), with Infrastructure bar at the bottom." loading="lazy" decoding="async">
+                    </a>
+                    <p class="image-caption">TribeBills system architecture — from client surfaces through the API layer down to data and services.</p>
+                </div>
+                <p>Let me walk through each layer.</p>
+            </section>
+
+            <section>
+                <h2>Client Layer: Two Apps, One Product</h2>
+                <p>The <strong>iOS app</strong> is built in SwiftUI with an MVVM architecture. VisionKit handles the document scanner, feeding images into Gemini's multimodal receipt parsing. Firebase Auth provides identity, while the app increasingly treats the PostgreSQL-backed API as the source of truth. Push notifications come through APNs.</p>
+                <div class="image-container mobile-screenshot">
+                    <a href="images/tribebills_phone_screengrab.PNG">
+                        <img src="images/tribebills_phone_screengrab.PNG" alt="TribeBills iOS app running on an iPhone, showing the mobile interface for bill management." loading="lazy" decoding="async">
+                    </a>
+                    <p class="image-caption">The iOS app in production.</p>
+                </div>
+                <p>The <strong>web app</strong> runs on Next.js 16, React 19, TypeScript, and Tailwind CSS v4. Zustand manages state. It supports Google OAuth, Apple Sign-In, and a full guest-to-registered user promotion flow. The web surface is particularly important for one scenario: someone receives an invite link, lands on the web, joins a tribe as a guest, and participates — all before ever creating an account. That join-by-link flow is one of the product's core affordances.</p>
+                <div class="image-container receipt-screenshot">
+                    <a href="images/tribebills_web screengrab.jpg">
+                        <img src="images/tribebills_web screengrab.jpg" alt="TribeBills web app showing a scanned receipt with parsed and classified line items." loading="lazy" decoding="async">
+                    </a>
+                    <p class="image-caption"><a href="https://tribebills.com" target="_blank" rel="noopener">TribeBills.com</a> — receipt parsing and item classification in action.</p>
+                </div>
+                <p>Both clients hit the same backend API. Same auth flow, same data, same billing. The consistency isn't just architectural tidiness — it means a user can scan a receipt on their phone, and their housemate can see the split on a laptop seconds later.</p>
+            </section>
+
+            <section>
+                <h2>API Layer: 50+ Endpoints, Seven Modules</h2>
+                <p>The backend is <strong>FastAPI</strong> running on Gunicorn with 8 Uvicorn workers, containerized in Docker. The API exposes over 50 endpoints across seven route modules:</p>
+                <ul>
+                    <li><strong>Users</strong> — registration, login (email/password, Google, Apple Sign-In), JWT access + refresh token rotation, guest identity via <code>X-Guest-ID</code>, device management for push, profile, account deletion</li>
+                    <li><strong>Tribes</strong> — group CRUD, member management, join-by-code, archive/restore, cover images</li>
+                    <li><strong>Bills</strong> — bill creation with auto-split calculation, line items, image uploads, calendar and chronological views, CSV export</li>
+                    <li><strong>Payments</strong> — payment tracking, verification workflow, proof-of-payment image upload with AI parsing</li>
+                    <li><strong>Subscriptions</strong> — Stripe Checkout session creation, customer portal, webhook handling (checkout complete, subscription updates, invoice events), tier-based usage gating</li>
+                    <li><strong>Recurring Bills</strong> — schedule creation, series management, daily cron-driven processing via a secured internal endpoint</li>
+                    <li><strong>Dashboard / Analytics</strong> — spending summaries, category breakdowns</li>
+                </ul>
+                <p>That's the skeleton. But the interesting parts aren't the endpoints themselves — they're the cross-cutting concerns: how auth works across guest and registered users, how rate limits protect expensive AI calls, how circuit breakers keep the system standing when third-party services stumble.</p>
+            </section>
+
+            <section>
+                <h2>Data Layer: PostgreSQL as Source of Truth</h2>
+                <p><strong>PostgreSQL 15</strong> via SQLAlchemy 2.x ORM with Alembic migrations. The schema spans 10+ tables: <code>users</code>, <code>tribes</code>, <code>user_tribes</code>, <code>bills</code>, <code>bill_splits</code>, <code>payments</code>, <code>subscriptions</code>, <code>recurring_bill_schedules</code>, <code>notifications</code>, <code>device_tokens</code>, <code>refresh_tokens</code>, <code>categories</code>, <code>bill_items</code>.</p>
+                <p>The schema supports soft deletes, guest-to-user promotion, subscription tier gating (tribe and bill limits enforced at the API level), and a recurring bill series model with parent-child schedule relationships. This wasn't the original data layer though — more on that migration below.</p>
+            </section>
+
+            <section>
+                <h2>AI Pipeline: Receipt Intelligence</h2>
+                <p>Receipt parsing is one of TribeBills' differentiators. When a competitor charges a subscription just to attach an image to a split, TribeBills reads the image, extracts every line item, categorizes them, and auto-fills the bill. Here's the pipeline:</p>
+                <ol>
+                    <li><strong>Image capture</strong> — VisionKit on iOS, file upload on web</li>
+                    <li><strong>Preprocessing</strong> — EXIF orientation correction via Pillow (receipts photographed at odd angles are more common than you'd think)</li>
+                    <li><strong>Multimodal extraction</strong> — the image goes to Google Gemini 2.0 Flash Lite with a structured prompt requesting JSON: items (name, price), tax, total, shop name</li>
+                    <li><strong>Post-OCR categorization</strong> — if enabled, a second Gemini call maps extracted items to the platform's category taxonomy</li>
+                    <li><strong>Payment proof parsing</strong> — a separate pipeline for payment verification images: extracts amount, date, method, transaction ID</li>
+                </ol>
+                <p>Each AI call is wrapped in a <strong>circuit breaker</strong> — threshold of 3 failures, recovery window of 30–60 seconds. When the breaker opens, the system returns structured error responses rather than failing the request. The user can still create the bill manually; the AI is an accelerant, not a dependency. Token costs were reduced roughly 60% through chunking strategies, prompt tuning, and real-time cost monitoring across providers.</p>
+            </section>
+
+            <section>
+                <h2>Key Engineering Decisions</h2>
+                <p>These are the choices that shaped TribeBills' architecture. Each one involved trade-offs, and I think the reasoning matters more than the result.</p>
+
+                <h3>Firebase to PostgreSQL Migration</h3>
+                <p>The iOS app started on Firebase — Auth, Firestore, Storage. It's the path of least resistance for a solo mobile developer: real-time sync, managed auth, no server to run. But as the product matured and the web app joined, Firebase's limitations surfaced. Relational queries were painful. Cross-collection constraints didn't exist. Reporting on shared expenses across users and tribes required gymnastics that would've been a simple JOIN in SQL.</p>
+                <p>So I migrated the authoritative data layer to PostgreSQL. The iOS app retains Firebase Auth and Firestore caching for offline support, while the backend API + PostgreSQL is now the system of record. A <code>MigrationManager</code> in the iOS codebase handles one-time data transfer from Firestore to the API. The migration happened without downtime or data loss — which, for a solo-run production system with real users, felt like landing a plane while replacing the engine.</p>
+
+                <h3>Guest Identity System</h3>
+                <p>This was a product requirement that turned into an interesting engineering problem. Someone receives a bill-split link but doesn't have an account. What happens? In most apps: a registration wall. In TribeBills: they join immediately as a guest.</p>
+                <p>The web frontend creates a guest identity (UUID-based), stores it locally, and passes it via an <code>X-Guest-ID</code> header. The guest can join tribes, view bills, and participate. When they eventually register, the backend promotes the guest record — preserving their entire history, splits, and tribe memberships. This required careful coordination across auth middleware, API headers, and client-side state. Getting it wrong meant either losing user data or creating duplicate identities. Getting it right meant zero friction for new users, which is everything for a social product.</p>
+
+                <h3>Recurring Bills via In-Container Cron</h3>
+                <p>Rather than spinning up a separate scheduler service — Celery, a Lambda, a managed cron — I run a cron job inside the Docker container that hits a secured internal endpoint (<code>X-Cron-Key</code> header) daily to process due recurring bills. Operationally simple for a solo-run system: one container, one deployment, no separate scheduler infrastructure. I <a href="vibe-coding-journey.html">wrote about the debugging story</a> in my vibe coding essay — environment variables not propagating from the Docker container to the cron daemon cost me a week of debugging. The fix was trivial; finding it was not.</p>
+
+                <h3>Rate Limiting and Abuse Prevention</h3>
+                <p>SlowAPI handles rate limiting with environment-aware thresholds: signup at 15/day in production, OCR at 50/day, auth at 5/min + 20/hour, resource creation at 50/day, data access at 100/hour. The OCR endpoint is the most expensive to abuse — each call hits a paid AI API — so it gets the tightest limits plus circuit breaker protection. The limits are generous enough for legitimate use but tight enough that I don't wake up to a surprise invoice.</p>
+
+                <h3>Freemium Gating</h3>
+                <p>Stripe manages subscriptions. Tier limits — max tribes, monthly bill count, recurring bill access — are enforced at the API layer with clear HTTP 403 payloads that the clients parse into upgrade prompts. The web frontend has a full <code>UpgradeModal</code> flow and tier-aware feature access checks. The decision to gate at the API rather than the client was deliberate: it means the rules are consistent regardless of which surface the user is on, and they can't be bypassed by a clever network request.</p>
+
+                <h3>Security Posture</h3>
+                <p>JWT with HS256, refresh token rotation and revocation. Apple Sign-In JWT verification against Apple's public keys. Google ID token verification. On the web frontend, <code>next.config.ts</code> includes CSP (report-only), HSTS, COOP/CORP, Permissions-Policy, and production console stripping. The API uses bcrypt password hashing via passlib. None of this is exotic — it's table stakes — but implementing it all correctly as a solo developer, across two client surfaces and a backend, forces you to understand every layer of the auth stack.</p>
+            </section>
+
+            <section>
+                <h2>Infrastructure</h2>
+                <p>The entire platform runs on a self-managed Linux VPS. Docker + docker-compose orchestrates the app container and PostgreSQL 15 Alpine. Nginx handles reverse proxying with TLS termination. Coolify manages automated deployments — push to main, it builds and deploys.</p>
+                <p>Image storage lives on the local filesystem (migrated from S3; function signatures retained so the migration back is trivial if scale demands it). Monitoring runs through Mixpanel analytics with non-blocking middleware and its own circuit breaker — analytics failures can never affect request latency. Push notifications go through APNs via aioapns, with device token management and platform-aware delivery.</p>
+                <p>It's not a fancy infrastructure story. There's no Kubernetes, no microservices, no multi-region failover. It's one server running one container serving real users. For a solo-operated platform, operational simplicity is a feature — every moving part is a part that can break at 2 AM with nobody else on call.</p>
+            </section>
+
+            <section>
+                <h2>What I Learned</h2>
+                <p>Building TribeBills taught me something that reading about architecture never could: that the hardest part isn't choosing the right technology. It's making the technologies you've chosen work together gracefully under real-world constraints — with real users, real money flowing through Stripe, real receipts photographed in bad lighting, and real deadlines set by your own ambition.</p>
+                <p>Full-stack ownership across iOS, web, backend, database, and infrastructure sounds impressive on paper. In practice, it means context-switching between SwiftUI layout bugs, SQLAlchemy migration conflicts, and Nginx config syntax — sometimes in the same afternoon. The breadth is the point, though. I wrote about this in my <a href="vibe-coding-journey.html">vibe coding essay</a>: breadth creates depth. You can't understand how a receipt upload should work unless you've touched every layer it passes through.</p>
+                <p>The AI integration taught me the most. Production AI isn't "call the API and hope" — it's circuit breakers, fallbacks, cost controls, structured error handling, and building the product so it works even when the AI doesn't. The manual flow always has to be there. The AI just makes it faster.</p>
+                <p>And operating it solo taught me discipline. Every architectural decision gets pressure-tested by the question: can I debug this at 2 AM? If the answer is "not easily," the design is wrong — no matter how elegant it looks in a diagram.</p>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Let's Connect</h3>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/in/abinashkarki/" target="_blank" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/abinashkarki" target="_blank" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <p class="copyright">
+                    © 2024 Abinash Karki. Built with curiosity and AI assistance.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
