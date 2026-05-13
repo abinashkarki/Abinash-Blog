@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Work, With Tests: A Year of Building a Public Research Wiki With LLM Agents | Abinash Karki</title>
+    <meta name="description" content="A year of building a public research wiki on Nepal's electricity system with LLM agents — drafted, linked, refined, and pressure-tested across many sessions. The pattern that held it together: knowledge work scales the same way a codebase does — versioned rules, validators, tests, and a build that fails when the rules are broken.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css?v=9">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Inline SVG figure styling — picks up theme colors from styles.css */
+        .figure-svg {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+        .figure-svg text {
+            font-family: 'Inter', -apple-system, sans-serif;
+            fill: var(--text-primary);
+        }
+        .figure-svg .axis,
+        .figure-svg .grid {
+            stroke: var(--border-subtle);
+        }
+        .figure-svg .label-muted {
+            fill: var(--text-muted);
+            font-size: 12px;
+        }
+        .figure-svg .label-secondary {
+            fill: var(--text-secondary);
+            font-size: 13px;
+        }
+        .figure-svg .bar-primary {
+            fill: var(--accent-primary);
+        }
+        .figure-svg .bar-secondary {
+            fill: var(--accent-secondary);
+        }
+        .figure-svg .bar-warm {
+            fill: var(--accent-warm);
+        }
+        .figure-svg .bar-muted {
+            fill: var(--text-muted);
+            opacity: 0.6;
+        }
+        .figure-svg .line-primary {
+            stroke: var(--accent-primary);
+            stroke-width: 2.5;
+            fill: none;
+        }
+        .figure-svg .dot-primary {
+            fill: var(--accent-primary);
+        }
+        .figure-svg .annotation {
+            fill: var(--text-secondary);
+            font-size: 12px;
+            font-style: italic;
+        }
+        .figure-svg .tier {
+            stroke: var(--border-accent);
+            stroke-width: 1.5;
+        }
+        .figure-svg .tier-fill-1 { fill: rgba(99, 102, 241, 0.12); }
+        .figure-svg .tier-fill-2 { fill: rgba(99, 102, 241, 0.22); }
+        .figure-svg .tier-fill-3 { fill: rgba(139, 92, 246, 0.30); }
+        .figure-svg .tier-fill-4 { fill: rgba(168, 85, 247, 0.40); }
+        .figure-svg .arrow {
+            stroke: var(--accent-warm);
+            stroke-width: 2;
+            fill: none;
+            marker-end: url(#arrowhead);
+        }
+        .figure-svg .arrow-forbidden {
+            stroke: #ef4444;
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 4 4;
+            marker-end: url(#arrowhead-red);
+        }
+
+        /* Lightly stylized blockquote for the audit-log excerpt */
+        .blog-post blockquote {
+            margin: 1.5rem 0;
+            padding: 1rem 1.25rem;
+            border-left: 3px solid var(--accent-primary);
+            background: var(--glass-bg);
+            border-radius: 0 8px 8px 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        .blog-post blockquote p { margin: 0.5rem 0; }
+        .blog-post blockquote p:first-child { margin-top: 0; }
+        .blog-post blockquote p:last-child { margin-bottom: 0; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">Abinash<span>.</span></a>
+            <div class="nav-links">
+                <a href="index.html#articles">Articles</a>
+                <a href="index.html#about">About</a>
+                <a href="https://github.com/abinashkarki" target="_blank">GitHub</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <article class="blog-post">
+            <h1>Knowledge Work, With Tests: A Year of Building a Public Research Wiki With LLM Agents</h1>
+            <p class="publication-date">Published on May 13, 2026</p>
+
+            <section>
+                <p>For the past year I have been quietly building a public knowledge product about Nepal's electricity system — a wiki paired with an interactive map, a structured project database, and a working static site at <a href="https://transparentgov.ai/wiki/explorer/" target="_blank" rel="noopener">transparentgov.ai/wiki/explorer</a>. Hydropower, transmission, storage, solar, trade — the kind of thing that would normally live as a 90-page PDF and be read by twelve people in a ministry.</p>
+                <p>What makes the project interesting to me, and what this post is about, is not the content but who wrote it. Almost every page on the wiki was drafted by an LLM agent, cross-linked by one, restructured by one, and stitched into the master argument by one. Source pages were summarized from primary PDFs. Project records were filled in from annual reports. Claims got their boundary conditions written by one agent and pressure-tested by the next. Map layers got their popup language drafted, then reframed, then audited for hierarchy creep. I curated, reviewed, made the structural calls, and set the bounds. The agents did the writing.</p>
+                <p>This is not a story about letting AI tinker with prose I had already written. It is a story about what it took to let AI build a serious public knowledge product end-to-end — across many editing sessions, with new pages being drafted and old ones being refined in the same week — without the whole thing slowly degrading into plausible average. The interesting result is not that LLM agents <em>can</em> build it. They can; that is now uncontroversial. The interesting result is what I had to do to the repository before they could build it <em>well</em>, and what the audit log caught when they slipped.</p>
+                <p>The pattern that emerged, after a year and a great deal of audit-log reading, is that knowledge work scales the same way a codebase does — with versioned rules, validators, tests, and a build that fails when the rules are broken. The five files in the next section are that scaffolding. Without them, every session left the corpus a little worse. With them, every session left it measurably better, and the audit log can prove it.</p>
+                <div class="image-container">
+                    <img src="images/repository-as-control-surface-hero.png" alt="A stylized illustration of a wiki being edited by translucent agent figures, surrounded by five glowing rule-tablets labeled Hierarchy, Ontology, Templates, Validators, and Audit. Deep navy space background with indigo and violet accents." loading="lazy" decoding="async">
+                    <p class="image-caption">Five files standing between agents and a knowledge corpus.</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>The Problem I Was Actually Afraid Of</h2>
+                <p>If you have spent any time letting an LLM agent edit a codebase, you know the failure modes. Type errors. Runtime exceptions. Broken tests. Imports that point at the wrong file. They are loud. They show up in CI. The whole industry has tools for catching them.</p>
+                <p>Letting an LLM edit a knowledge corpus is not the same kind of problem. The bad outcomes there are quiet. A source page picks up a sentence of interpretation. A data page picks up a recommendation. The canonical definition of "seasonal mismatch" drifts into "winter crisis" on one page and "monsoon-export-dry-import asymmetry" on another. A source page's <code>Used By</code> list expands to include pages that <em>should</em> cite the source but don't actually cite it. Two contradictory numbers from two different reports get smoothed into one consensus paragraph that does not match either source.</p>
+                <p>None of that breaks a build. None of that looks wrong in a diff. Each individual edit is plausible. The damage shows up after twenty sessions, when a reader notices that the wiki's central definition has changed three times and nobody can remember which version is right.</p>
+                <p>That was the thing I was actually afraid of. Not the agents being bad at editing — they are perfectly competent at editing. I was afraid of them being competent at editing toward an average prose, when the whole point of a research wiki is that <em>specific claims, with specific sources, in specific places</em> are what give it value.</p>
+            </section>
+
+            <section>
+                <h2>Why the Prompt Wasn't Enough</h2>
+                <p>The first thing I learned is that you cannot solve this in the prompt. I tried. Long system prompts, careful task descriptions, "be source-disciplined" instructions. They worked for the first half of a session and then dissolved as context filled up with other concerns. Asking an LLM to remember a discipline across a session is asking it to do something it is structurally not good at.</p>
+                <p>What did work was moving the discipline into the repository itself. Not as documentation that an agent might read once, but as a set of files an agent has to pass through to do anything useful. Governance documents that define the hierarchy. An ontology file that locks the canonical terms. Templates per page type. Validators that run before commits. An audit log that every session writes to.</p>
+                <p>I started thinking of this as <em>code-adjacent infrastructure</em>. It is not code in the runtime sense — none of it executes when the site is built. But it is code in the every-future-edit-has-to-respect-this sense. The repository becomes the second editor. The prompt only tells the agent what to do; the repository tells it what it must not do, and makes the difference visible.</p>
+                <p>The set converged on five files, and they are small enough to fit in a single screenshot:</p>
+                <pre style="background: var(--bg-tertiary); padding: 1rem 1.25rem; border-radius: 8px; border: 1px solid var(--border-subtle); overflow-x: auto; font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">wiki/GOVERNANCE.md          # authority hierarchy + invariants
+wiki/ONTOLOGY.md            # canonical terms, allowed and disallowed aliases
+wiki/TEMPLATES.md           # canonical section structure per page type
+wiki/QUALITY_RUBRIC.md      # tier definitions and target distribution
+wiki/FLAGGED_FOR_REVIEW.md  # running unresolved-issues log
+wiki/WIKI_AUDIT_LOG.md      # session-by-session record
+docs/session-template.md    # the prompt wrapper editors paste in
+scripts/validate_repo.py    # hard-fail and warn-only structural checks
+scripts/check_source_used_by.py</pre>
+                <p>Under two thousand lines of markdown and a few hundred lines of Python. The rest of this post is about what each file does, and — more interesting to me — what they actually caught when I went back and read fifty sessions of audit log entries.</p>
+            </section>
+
+            <section>
+                <h2>The Five Files</h2>
+
+                <h3>1. The authority hierarchy</h3>
+                <p>The single most important file in the repository is <code>wiki/GOVERNANCE.md</code>. The first thing it does is sort every page in the wiki into one of four authority levels.</p>
+                <p>Sources sit at the bottom. They describe primary materials — annual reports, PDFs, registries — and they are explicitly forbidden from interpretation. Above them, data pages, entity pages, and claim pages present structured facts and evidence-backed arguments, but they must not contain strategic implications. Synthesis pages sit above those — the only layer where "so what" belongs. And at the top, a single master thesis page acts as the cross-synthesis frame for the whole wiki.</p>
+                <p>The hard rule is that interpretation can move <em>upward</em> only. A claim page can cite a data page; a data page must not contain claim-page reasoning. A synthesis page can cite a claim; a claim must not pre-emptively conclude the synthesis. If you find an argument leaking downward, it must be moved up to its proper layer, and the lower page should link to it.</p>
+
+                <svg class="figure-svg" viewBox="0 0 720 360" role="img" aria-labelledby="hierarchy-title">
+                    <title id="hierarchy-title">Four-level authority hierarchy. Interpretation can move upward but not downward.</title>
+                    <defs>
+                        <marker id="arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                            <path d="M 0 0 L 10 5 L 0 10 Z" fill="#f59e0b" />
+                        </marker>
+                        <marker id="arrowhead-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                            <path d="M 0 0 L 10 5 L 0 10 Z" fill="#ef4444" />
+                        </marker>
+                    </defs>
+                    <!-- Four tiers as horizontal bars, narrowest at top -->
+                    <rect x="200" y="40"  width="260" height="50" class="tier tier-fill-4" rx="4" />
+                    <rect x="160" y="105" width="340" height="50" class="tier tier-fill-3" rx="4" />
+                    <rect x="120" y="170" width="420" height="50" class="tier tier-fill-2" rx="4" />
+                    <rect x="80"  y="235" width="500" height="50" class="tier tier-fill-1" rx="4" />
+                    <!-- Tier labels -->
+                    <text x="330" y="70"  text-anchor="middle" font-size="15" font-weight="600">L4 — Master Thesis</text>
+                    <text x="330" y="135" text-anchor="middle" font-size="15" font-weight="600">L3 — Syntheses</text>
+                    <text x="330" y="200" text-anchor="middle" font-size="15" font-weight="600">L2 — Data · Entities · Claims</text>
+                    <text x="330" y="265" text-anchor="middle" font-size="15" font-weight="600">L1 — Sources</text>
+                    <!-- Tier subtitles -->
+                    <text x="330" y="86"  text-anchor="middle" class="label-secondary">cross-synthesis framing</text>
+                    <text x="330" y="151" text-anchor="middle" class="label-secondary">"so what" belongs here</text>
+                    <text x="330" y="216" text-anchor="middle" class="label-secondary">facts, records, bounded arguments</text>
+                    <text x="330" y="281" text-anchor="middle" class="label-secondary">what does each source say?</text>
+                    <!-- Arrows -->
+                    <path d="M 605 260 Q 645 165 605 70"  class="arrow" />
+                    <text x="655" y="170" class="annotation">interpretation</text>
+                    <text x="655" y="186" class="annotation">moves up</text>
+                    <path d="M 65 70 Q 25 165 65 260" class="arrow-forbidden" />
+                    <text x="5" y="170" class="annotation" style="fill:#ef4444;">never</text>
+                    <text x="5" y="186" class="annotation" style="fill:#ef4444;">downward</text>
+                </svg>
+
+                <p>This sounds almost philosophical, but it is the most operationally useful rule in the whole system. Once it is enforceable, a remarkable amount of fuzzy editorial argument simplifies. "Should this paragraph live on the source page or the claim page?" becomes a single question: is it interpretation? If yes, it must move up.</p>
+                <p>Beneath the hierarchy, the same file lists ten non-negotiable invariants. Most of them are prohibitions. <em>No quantitative claim without source linkage. No confidence inheritance across claims. Never replace sourced text with paraphrased summaries. Never remove interpretive content without verifying downstream existence first.</em> I wrote them as prohibitions on purpose. A list of things to do expands forever; a list of things that must not happen is finite, and a validator can check most of it.</p>
+
+                <h3>2. The ontology</h3>
+                <p>The second file, <code>wiki/ONTOLOGY.md</code>, locks the canonical terms. For every load-bearing concept in the wiki — <em>seasonal mismatch, storage deficit, firm power, run-of-river hydropower, stranded generation, solar-hydro complementarity, sediment as design constraint</em> — it gives a definition, a list of allowed aliases, a list of <em>disallowed</em> aliases with reasons, and pointers to parent synthesis pages.</p>
+                <p>The disallowed aliases are the part that does the work. "Winter crisis" is forbidden, not because it is wrong, but because it is too narrow — it implies dry-season shortage only, when "seasonal mismatch" is the broader monsoon-surplus-plus-dry-deficit pattern. "Solar replacement" is forbidden because it mischaracterizes the argument — solar does not replace hydro, it complements it. Recording the disallowed term, with the reason, is what prevents an agent from drifting into it on the next session and a human reviewer from waving it through.</p>
+                <p>The other thing the file does is make new term introduction a procedural step. New terms get <em>flagged</em> in a separate review file before they are used. They do not enter the ontology by accumulation; they enter by review. This single rule has done the most to prevent terminology fragmentation across editing sessions. Before it existed, three sessions could leave the wiki with three different canonical phrases for the same concept and nobody had decided which was preferred.</p>
+
+                <h3>3. Templates per page type</h3>
+                <p>Each of the seven page categories — sources, entities, concepts, claims, data, syntheses, interventions — has a canonical section structure, tied to an exemplar page. Source pages get <code>## Summary / ## Key Findings / ## Relevance / ## Limitations / ## Used By</code>. Claim pages get <code>## Claim / ## Evidence / ## Confidence Rationale / ## Unresolved Issues / ## Boundary Conditions / ## Related</code>. And so on.</p>
+                <p>This sounds bureaucratic. In practice it is what makes pages comparable. A reader who has read one claim page can read any claim page; the order of sections is the same, the kind of content in each section is the same, what the page is <em>for</em> is the same. Boring is good. Boring is what lets a reader navigate three hundred and eighty pages without learning a new convention on each one.</p>
+
+                <h3>4. Validators</h3>
+                <p>Templates are useless without enforcement, so <code>scripts/validate_repo.py</code> runs as part of <code>make validate</code> on every commit. It has two tiers of checks.</p>
+                <p>The hard-fail checks block the build. They catch broken wikilinks (case-sensitive — many of these would survive human review), cache mismatches between page files and the explorer's JSON indexes, layer-manifest references to GeoJSON files that don't exist, project slugs in the structured CSV that don't have wiki pages, duplicate <code>claim_id</code>s, public-language slips like the names of specific AI providers showing up in the README, and tracked files that should never be in version control. About a thousand lines of Python; most of it is small.</p>
+                <p>The warn-only checks are the more interesting half. They surface pages missing canonical section headings per category, entity pages of certain generator types missing their <code>## Sources</code> section, status fields in frontmatter that disagree with the structured CSV. Crucially, they are <em>tier-aware</em>. An auto-stub entity is correctly minimal — it does not get warned about for missing <code>## Limitations</code>. A brief-tier page needs a Summary but not a full controversies section. The tiers live in the quality rubric file; the validator just reads them.</p>
+                <p>The first version of the validator printed every individual warning. Six hundred and ninety-six of them. Nobody read the output. I rewrote it to emit a category-by-category summary instead, with the full list one environment variable away. The change took twenty minutes and is the reason the validator actually gets read every commit:</p>
+                <pre style="background: var(--bg-tertiary); padding: 1rem 1.25rem; border-radius: 8px; border: 1px solid var(--border-subtle); overflow-x: auto; font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">WARN: missing required sections (warning only — not a hard fail)
+        — skipped 72 record-tier pages
+  claims:   0 pages missing ## Boundary Conditions
+  concepts: 31 pages missing ## Summary
+  concepts: 31 pages missing ## Simple Explanation
+  concepts: 31 pages missing ## Common Misunderstandings
+  data:     23 pages missing ## Summary
+  ...</pre>
+                <p>The summary tells an editor the next move. The full list, with WIKI_VERBOSE=1, is for when you want it.</p>
+                <p>A second, smaller validator — <code>scripts/check_source_used_by.py</code> — is more specific. For every source page, it builds the actual set of exact backlinks from the rest of the wiki, compares it to the page's declared <code>## Used By</code> list, and prints the diff. It is one of the most consequential thirty lines of Python in the project, and I'll come back to why in a moment.</p>
+
+                <h3>5. Bounded sessions and the audit log</h3>
+                <p>The fifth file is procedural. Every editing session is bounded — five pages at most, no exceptions — and every session is logged.</p>
+                <p>The session template is a prompt wrapper. An editor (human or agent) pastes it as the first message of any session. It declares the category, lists the five pages, names the exemplar, points at the governance and ontology files, and asks the agent to read all three before starting. It defines a four-step per-page loop — <em>diagnose, propose, flag, confirm</em> — and lists stopping conditions: split-or-merge decisions, contradictions across pages, uncertainty about which category a piece of content belongs to.</p>
+                <p>After the session, the editor writes an entry in <code>WIKI_AUDIT_LOG.md</code>. It is now the most-read file in the repository after the master thesis. Every entry follows the same shape — pages touched, validation delta, flags raised, patterns observed, decisions made. Something like this:</p>
+                <blockquote>
+                    <p><strong>2026-05-11 — Concepts Pass (Second Cycle, Session 5)</strong></p>
+                    <p>Pages touched: <code>concepts/stranded-generation</code>, <code>concepts/seasonal-mismatch</code>, <code>concepts/seasonal-arbitrage-trap</code>, <code>concepts/q-design-discharge</code>, <code>concepts/ganges-contribution</code> — added <code>## Summary</code>, <code>## Simple Explanation</code>, <code>## Common Misunderstandings</code> on all five.</p>
+                    <p>Validation: 548 → 533 warnings (−15). Flags raised: none. Pattern observed: third policy prescription found on a concept page across full audit — consistent with the structural prediction that concept and data pages absorb analysis that hasn't found its synthesis home.</p>
+                </blockquote>
+                <p>The first three fields — pages touched, validation delta, flags raised — are accounting. The last two — patterns observed, decisions made — are where the real research artifact lives. Over fifty sessions, the "pattern observed" line accumulates into something with empirical weight. That is what the next section is about.</p>
+            </section>
+
+            <section>
+                <h2>What the System Actually Caught</h2>
+                <p>The point of writing the audit log is that patterns across sessions become visible. After eight weeks of edits and the better part of two hundred pages reviewed, four findings stood out.</p>
+
+                <h3>Where interpretation bleeds downward</h3>
+                <p>The single most useful empirical finding the audit log produced was that <em>hierarchy violations have an obvious category signature</em>. They are not evenly distributed; they cluster.</p>
+
+                <svg class="figure-svg" viewBox="0 0 720 380" role="img" aria-labelledby="violation-rate-title">
+                    <title id="violation-rate-title">Hierarchy violation rates by page category, weeks 1–8.</title>
+                    <!-- y axis grid -->
+                    <line x1="90" y1="40"  x2="690" y2="40"  class="grid" />
+                    <line x1="90" y1="100" x2="690" y2="100" class="grid" />
+                    <line x1="90" y1="160" x2="690" y2="160" class="grid" />
+                    <line x1="90" y1="220" x2="690" y2="220" class="grid" />
+                    <line x1="90" y1="280" x2="690" y2="280" class="grid" stroke-width="1.4" />
+                    <!-- y axis labels -->
+                    <text x="80" y="44"  text-anchor="end" class="label-muted">60%</text>
+                    <text x="80" y="104" text-anchor="end" class="label-muted">45%</text>
+                    <text x="80" y="164" text-anchor="end" class="label-muted">30%</text>
+                    <text x="80" y="224" text-anchor="end" class="label-muted">15%</text>
+                    <text x="80" y="284" text-anchor="end" class="label-muted">0%</text>
+                    <!-- Bars: x positions 130, 240, 350, 460, 570 (widths 80), heights scaled so 60%=240px -->
+                    <!-- Sources 60% -->
+                    <rect x="120" y="40"  width="80" height="240" class="bar-secondary" rx="2" />
+                    <text x="160" y="298" text-anchor="middle" font-size="13" font-weight="600">Sources</text>
+                    <text x="160" y="32"  text-anchor="middle" font-size="13" font-weight="600">60%</text>
+                    <!-- Data 40% -->
+                    <rect x="230" y="120" width="80" height="160" class="bar-secondary" rx="2" />
+                    <text x="270" y="298" text-anchor="middle" font-size="13" font-weight="600">Data</text>
+                    <text x="270" y="112" text-anchor="middle" font-size="13" font-weight="600">40%</text>
+                    <!-- Concepts 20% -->
+                    <rect x="340" y="200" width="80" height="80" class="bar-primary" rx="2" />
+                    <text x="380" y="298" text-anchor="middle" font-size="13" font-weight="600">Concepts</text>
+                    <text x="380" y="192" text-anchor="middle" font-size="13" font-weight="600">20%</text>
+                    <!-- Claims 0% -->
+                    <rect x="450" y="278" width="80" height="2"  class="bar-muted" rx="1" />
+                    <text x="490" y="298" text-anchor="middle" font-size="13" font-weight="600">Claims</text>
+                    <text x="490" y="272" text-anchor="middle" font-size="13" font-weight="600">0%</text>
+                    <!-- Entities 0% -->
+                    <rect x="560" y="278" width="80" height="2"  class="bar-muted" rx="1" />
+                    <text x="600" y="298" text-anchor="middle" font-size="13" font-weight="600">Entities</text>
+                    <text x="600" y="272" text-anchor="middle" font-size="13" font-weight="600">0%</text>
+                    <!-- Annotation -->
+                    <text x="360" y="335" text-anchor="middle" class="label-secondary">Pages reviewed: 5 per category. Severity highest on data pages.</text>
+                    <text x="360" y="355" text-anchor="middle" class="label-muted">Source: WIKI_AUDIT_LOG.md, weeks 1–8</text>
+                </svg>
+
+                <p>Sources and data pages were the riskiest categories by a wide margin. Sixty percent of sampled source pages contained interpretive language that belonged on a claim or synthesis page. Forty percent of data pages contained outright recommendations. Concepts had one violation in five pages. Claims and entities had zero across the same sample.</p>
+                <p>The reading is structural, not personal. Source pages and data pages are the closest to the evidence — they are the natural place to write down what you noticed when you read the source, or what the table seems to imply. Both intuitions are wrong, and both produce the worst kind of drift: interpretation hidden inside evidence. The same finding showed up on three different occasions, in three different categories — <code>data-storage-comparison</code>, <code>concepts/buildability</code>, <code>data-solar-hydro-complementarity-profile</code> — each time with a different agent on a different day. After the third one I added a tenth invariant to the governance file: <em>no policy prescriptions on concept or data pages</em>. The pressure to write them was structural, so the rule had to be too.</p>
+                <p>What surprised me about this is how clean the signal was. Within five weeks, an audit log written down longhand was producing a statistically useful map of which page categories were absorbing the wrong kind of content. That is not a result you can extract from an individual session; you can only see it after a hundred sessions of audit-log entries say similar things.</p>
+
+                <h3>The template-adoption gap</h3>
+                <p>The other big pattern was less dramatic and more useful. Across five categories — claims, concepts, sources, data, entities — the same kinds of section were missing, <em>cohort-wide</em>. Four of five claim pages lacked their <code>## Boundary Conditions</code> section. Five of five concept pages lacked <code>## Simple Explanation</code> and <code>## Common Misunderstandings</code>. Source pages were missing <code>## Limitations</code> and <code>## Used By</code> at similar rates.</p>
+                <p>This was not the agents' fault. The templates were written after most of the pages. The pages weren't drifting; they pre-dated the rule. Once the validator started counting, the gap became a measurable program of work rather than an indefinite editorial burden:</p>
+
+                <svg class="figure-svg" viewBox="0 0 720 360" role="img" aria-labelledby="warning-trajectory-title">
+                    <title id="warning-trajectory-title">Structural warning count over eight weeks of bounded editing sessions.</title>
+                    <!-- y axis grid -->
+                    <line x1="90" y1="40"  x2="690" y2="40"  class="grid" />
+                    <line x1="90" y1="100" x2="690" y2="100" class="grid" />
+                    <line x1="90" y1="160" x2="690" y2="160" class="grid" />
+                    <line x1="90" y1="220" x2="690" y2="220" class="grid" />
+                    <line x1="90" y1="280" x2="690" y2="280" class="grid" stroke-width="1.4" />
+                    <!-- y axis labels (700, 650, 600, 550, 500) -->
+                    <text x="80" y="44"  text-anchor="end" class="label-muted">700</text>
+                    <text x="80" y="104" text-anchor="end" class="label-muted">650</text>
+                    <text x="80" y="164" text-anchor="end" class="label-muted">600</text>
+                    <text x="80" y="224" text-anchor="end" class="label-muted">550</text>
+                    <text x="80" y="284" text-anchor="end" class="label-muted">500</text>
+                    <!-- Data points: (label, value) -> y = 40 + ((700 - v)/200)*240
+                         Baseline=696 → y=44.8
+                         Tier filter=593 → y=168.4
+                         Session 1=582 → y=181.6
+                         Session 2=573 → y=192.4
+                         Session 3=563 → y=204.4
+                         Session 4=548 → y=222.4
+                         Session 5=533 → y=240.4
+                    -->
+                    <!-- Connecting line -->
+                    <polyline class="line-primary" points="
+                        140,45
+                        225,168
+                        310,182
+                        395,192
+                        480,204
+                        565,222
+                        650,240
+                    " />
+                    <!-- Dots -->
+                    <circle cx="140" cy="45"  r="5" class="dot-primary" />
+                    <circle cx="225" cy="168" r="5" class="dot-primary" />
+                    <circle cx="310" cy="182" r="5" class="dot-primary" />
+                    <circle cx="395" cy="192" r="5" class="dot-primary" />
+                    <circle cx="480" cy="204" r="5" class="dot-primary" />
+                    <circle cx="565" cy="222" r="5" class="dot-primary" />
+                    <circle cx="650" cy="240" r="5" class="dot-primary" />
+                    <!-- Values above each dot -->
+                    <text x="140" y="32"  text-anchor="middle" font-size="12" font-weight="600">696</text>
+                    <text x="225" y="155" text-anchor="middle" font-size="12" font-weight="600">593</text>
+                    <text x="310" y="169" text-anchor="middle" font-size="12" font-weight="600">582</text>
+                    <text x="395" y="179" text-anchor="middle" font-size="12" font-weight="600">573</text>
+                    <text x="480" y="191" text-anchor="middle" font-size="12" font-weight="600">563</text>
+                    <text x="565" y="209" text-anchor="middle" font-size="12" font-weight="600">548</text>
+                    <text x="650" y="227" text-anchor="middle" font-size="12" font-weight="600">533</text>
+                    <!-- X axis labels -->
+                    <text x="140" y="305" text-anchor="middle" class="label-secondary">baseline</text>
+                    <text x="225" y="305" text-anchor="middle" class="label-secondary">tier filter</text>
+                    <text x="310" y="305" text-anchor="middle" class="label-secondary">s.1</text>
+                    <text x="395" y="305" text-anchor="middle" class="label-secondary">s.2</text>
+                    <text x="480" y="305" text-anchor="middle" class="label-secondary">s.3</text>
+                    <text x="565" y="305" text-anchor="middle" class="label-secondary">s.4</text>
+                    <text x="650" y="305" text-anchor="middle" class="label-secondary">s.5</text>
+                    <!-- Annotation -->
+                    <text x="225" y="50" text-anchor="middle" class="annotation">first version listed every single warning</text>
+                    <text x="640" y="265" text-anchor="end" class="annotation">claims category reaches zero structural warnings</text>
+                </svg>
+
+                <p>The warning count fell from 696 to 593 once the tier-aware filter went in — record-tier auto-stubs are correctly minimal and should not be counted against the gap. Then it fell session by session as the cohorts were retrofitted. Claims hit zero structural warnings first, on the second session of the second cycle, when all sixteen claim pages had a canonical <code>## Boundary Conditions</code> section. That chart, more than anything else, is what convinces me that bounded sessions with a validating counter are the right shape for this kind of work.</p>
+
+                <h3>Citing by memory</h3>
+                <p>The clearest single-mechanism failure the system ever caught was on a source page's <code>## Used By</code> list. Early in the project, an agent rebuilding the Used By section reconstructed the list from recall — what pages it <em>thought</em> cited the source. The list looked plausible. It included pages that did not cite the source, and excluded pages that did.</p>
+                <p>The fix was a one-line rule in the session template and a thirty-line Python script. The rule: the <code>## Used By</code> section must be built from a grep against the wiki, never from memory. The script does the grep automatically and prints the diff. It now runs as part of <code>make test</code>.</p>
+                <p>What is interesting about this is that the agent was not really the problem. Humans had been doing the same thing — reconstructing citations from memory — for years on similar artifacts. The validator made the failure mode visible, and the rule turned the discipline into a procedural step. After the rule went in, ten consecutive source-page edits passed the validator on first attempt.</p>
+
+                <h3>The audit log is a claim, not a fact</h3>
+                <p>A subtler failure showed up weeks later, during an external review pass: two edits recorded in the audit log had not actually been written to disk. The log said <code>+## Boundary Conditions</code> had been added to <code>claim-mw-not-equal-value</code>. The file did not contain it. Root cause unknown — maybe an edit-tool failure, maybe a revert, maybe a proposal that was confirmed but never executed.</p>
+                <p>The fix was procedural: the audit log must be verified against file contents before pushing. The deeper lesson is that the audit log is a <em>claim</em>, not a fact. It is as susceptible to drift as any other document in the corpus, and needs its own validation step. Currently that runs as a periodic spot-check; eventually it should be automated.</p>
+            </section>
+
+            <section>
+                <h2>What Didn't Work</h2>
+                <p>This part is more useful than the previous part, and I want to be careful not to oversell what I built. Several things did not work, or worked at a cost I should be honest about.</p>
+                <p><strong>Five-page sessions are slow.</strong> The five-page-per-session bound is the most-felt cost in the system. It limits an editor to maybe twenty pages a week of paid attention. For a wiki of 380 pages and another four hundred candidate slugs, that is a long horizon. I tried relaxing it twice. The first relaxation — a six-page batch with parallel writes — worked, but only because every page had the same diagnosis (<em>missing <code>## Boundary Conditions</code></em>) and zero flags. The second relaxation, on a heterogeneous batch, produced an unresolved category mistake and was reverted to the five-page bound. The rule I now follow is that bounded scope is hard for heterogeneous batches and soft for uniform batches.</p>
+                <p><strong>The validator is hygiene, not research.</strong> Validators catch structural drift. They do not catch analytical mistakes. A page can have a perfect Summary, Simple Explanation, and Common Misunderstandings section, in the right order, and still contain the wrong number. The validator is silent. This is correct behavior — calibrating confidence is what humans are for — but it is also a real limit. A reader who sees <code>OK: 378 wiki pages</code> should conclude that 378 pages are <em>structurally compliant</em>, not that 378 pages are correct. The two are different.</p>
+                <p><strong>Confidence drift is unsolved.</strong> The wiki tags claims with confidence flags — high, medium-high, medium, low. The ontology declares a canonical confidence per claim. Page frontmatter declares one per claim. In principle these should agree. In practice we found one disagreement per major audit pass. Resolution requires a human reading the underlying evidence and choosing.</p>
+                <p><strong>Ontology drift is constant.</strong> Every editing session produces at least one terminology question. The protocol — flag in the review file, defer to monthly review — works. It also produces a steady backlog. There is no version of this system in which the ontology is "done." There is a version in which it is well-maintained, and that is sufficient.</p>
+                <p><strong>Categories are part of the API.</strong> I rewrote the page-type taxonomy once — splitting concepts and claims into separate categories — and the validators, ontology, templates, audit log, and session template all needed to be updated together. There is no atomic operation for "rename a category." Each rename produced a small cascade. The lesson is to treat the categories themselves as load-bearing API and version them deliberately.</p>
+            </section>
+
+            <section>
+                <h2>The General Pattern</h2>
+                <p>The five mechanisms are not specific to wikis, energy, or Nepal. They are specific to <em>long-lived corpora edited in sessions by mixed teams</em>. That includes country dossiers, sector primers, multi-author academic projects, internal corporate knowledge bases that accumulate across teams and years, regulatory or compliance corpora, even code documentation systems where the docs have their own evidentiary structure.</p>
+                <p>The shape stays the same. What changes is the <em>content</em> of the rule files. The authority hierarchy might be <em>source → finding → claim → recommendation</em>, or <em>evidence → analysis → memo</em>, or <em>interview → coding → theme → theory</em>. The ontology might be terms of art in a different domain. The templates change with the kinds of artifact involved. What does not change is the principle that the rules live in the repository, the validators enforce structural invariants, and every session leaves an audit-log entry.</p>
+                <p>One cross-cutting prediction is worth flagging. For any sufficiently large corpus, <em>interpretation will accumulate on the lowest-authority pages</em>. The data page or source page absorbs the analyst's notes because it is the closest to the evidence and the easiest place to write them down. The pressure is structural, not personal. The mechanism that resists it — the hierarchy rule, the downstream-check, invariant nine — has to be enforced for the duration of the corpus's life, not the duration of one editorial pass.</p>
+            </section>
+
+            <section>
+                <h2>Repository as the Second Author</h2>
+                <p>The phrase I keep coming back to is <em>repository as the second author</em>. The prompt sets the task. The model produces the words. The repository — through governance, ontology, templates, validators, and audit log — sets the constraints that decide whether those words become part of the corpus or get sent back. None of those constraints are exotic. None of them require model-specific knowledge. They are all things you would already want for a serious editorial project, just written down where an editor of any kind — human, agent, future me — has to read them.</p>
+                <p>I think this is the part that generalizes beyond LLM editing. Knowledge corpora have always had this problem; LLMs just made it visible. Once you have an editor — any editor — operating in bounded sessions across many years, you need the rules to live somewhere both legible and enforceable. The repository turns out to be the right place. The agents just made the cost of <em>not</em> doing this expensive enough that I finally wrote it down.</p>
+                <p>The wiki is at <a href="https://transparentgov.ai/wiki/explorer/" target="_blank" rel="noopener">transparentgov.ai/wiki/explorer</a>. The kit — <code>GOVERNANCE.md</code>, <code>ONTOLOGY.md</code>, <code>TEMPLATES.md</code>, <code>validate_repo.py</code>, the audit log, the session template — is small enough to lift in an afternoon. If you copy it into a different corpus and the same patterns repeat, or fail to repeat, I would like to hear about it. The interesting question is whether the result generalizes; the only way to find out is to run the experiment in a second place.</p>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Let's Connect</h3>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/in/abinashkarki/" target="_blank" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/abinashkarki" target="_blank" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <p class="copyright">
+                    © 2024 Abinash Karki. Built with curiosity and AI assistance.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
