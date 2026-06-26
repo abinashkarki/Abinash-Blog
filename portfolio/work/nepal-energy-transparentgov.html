@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Nepal Energy Wiki case study: a source-linked public knowledge system combining a governed wiki, semantic search, live maps, validation, and agent workflows.">
+    <title>Nepal Energy Wiki — Abinash Karki</title>
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="../index.html"><span class="brand-mark">AK</span><span>Abinash Karki</span></a>
+        <div class="nav-links">
+          <a href="../index.html#work">Work</a>
+          <a aria-current="page" href="nepal-energy-transparentgov.html">Nepal Energy Wiki</a>
+          <a href="../writing.html">Writing</a>
+          <a href="../about.html">About</a>
+          <a href="../resume.html">Résumé</a>
+          <a class="nav-contact" href="mailto:karkiabinash777@gmail.com">Email</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="page">
+      <section class="case-hero">
+        <div>
+          <p class="eyebrow">Governed agent system · civic knowledge</p>
+          <h1>Nepal Energy Wiki</h1>
+          <p class="lead">
+            A governed AI research workflow where repository rules, validators, and retrieval
+            benchmarks constrain agent output across a public, source-linked evidence system.
+          </p>
+          <div class="button-row">
+            <a class="button" href="https://transparentgov.ai/wiki/explorer/" target="_blank" rel="noopener">Open live explorer ↗</a>
+            <a class="button secondary" href="https://github.com/abinashkarki/NepalHydroAndEnergy" target="_blank" rel="noopener">View repository ↗</a>
+          </div>
+        </div>
+        <figure class="evidence-panel">
+          <img src="../assets/img/nepal-hydropower-clean-cover.jpg" alt="Kulekhani reservoir landscape representing the geography of Nepal hydropower">
+        </figure>
+      </section>
+
+      <section class="section compact">
+        <div class="case-summary">
+          <div class="summary-cell"><span>Frozen holdout</span><strong>29/30 top-10 · 0.740 MRR</strong></div>
+          <div class="summary-cell"><span>Structure</span><strong>696 → 0 warnings</strong></div>
+          <div class="summary-cell"><span>Verification</span><strong>64 automated tests</strong></div>
+          <div class="summary-cell"><span>Audit trail</span><strong>51 sessions</strong></div>
+        </div>
+      </section>
+
+      <section id="system" class="section">
+        <div class="case-grid">
+          <div class="case-copy">
+            <p class="eyebrow">The central problem</p>
+            <h2>Nepal has more electricity than it can sell—and less than it needs.</h2>
+            <p>
+              Run-of-river hydropower peaks with the monsoon. Demand does not. Nepal therefore
+              exports wet-season surplus while importing expensive dry-season power. The project
+              investigates that timing problem across generation, storage, transmission, trade,
+              solar complementarity, institutions, and project finance.
+            </p>
+            <ul>
+              <li>388 source, data, entity, concept, claim, and synthesis pages.</li>
+              <li>Hybrid search across 3,122 indexed chunks and 656 structured facts.</li>
+              <li>29 map layers connected to 192 page–map bindings.</li>
+              <li>Explicit unresolved questions where public evidence remains incomplete.</li>
+            </ul>
+            <p class="project-status">Built independently from source ingestion through the public explorer.</p>
+          </div>
+          <div class="image-stack">
+            <figure class="image-frame">
+              <img src="../assets/img/nepal-river-constraint.jpg" alt="Nepal river corridor representing seasonal hydropower constraints">
+            </figure>
+            <p class="caption">The research starts with a physical constraint: river timing, storage, transmission, and public evidence have to be interpreted together.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="pipeline" class="section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">The agent workflow</p>
+            <h2>The repository defines what acceptable knowledge looks like.</h2>
+          </div>
+          <p>Agents can accelerate research and maintenance, but they do not decide their own evidence standard.</p>
+        </div>
+        <div class="proof-flow">
+          <article class="proof-step"><h3>Ingest sources</h3><p>Reports, tables, registries, and maps retain provenance and boundaries.</p></article>
+          <article class="proof-step"><h3>Build typed knowledge</h3><p>Sources, data, entities, concepts, claims, and syntheses have different permissions.</p></article>
+          <article class="proof-step"><h3>Validate the graph</h3><p>Templates, links, indexes, ownership rules, and search behavior run through automated checks.</p></article>
+          <article class="proof-step"><h3>Audit failures</h3><p>Observed agent mistakes become new rules, prompts, validators, or unresolved questions.</p></article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Measured correction</p>
+            <h2>The system improved by turning failures into constraints.</h2>
+          </div>
+        </div>
+        <div class="result-strip evidence-strip">
+          <div class="result-card"><strong>63.3%</strong><span>hit@1 across the frozen 30-query internal holdout.</span></div>
+          <div class="result-card"><strong>86.7%</strong><span>hit@5 across six simulated user personas.</span></div>
+          <div class="result-card"><strong>96.7%</strong><span>hit@10; one storage-roadmap query missed the top ten.</span></div>
+          <div class="result-card"><strong>0.624</strong><span>nDCG@10 with graded internal relevance judgments.</span></div>
+        </div>
+        <p class="ownership-note">The earlier 46/50 → 50/50 result remains a development benchmark used while changing ranking behavior. The separate v1 holdout was frozen before one read-only search run and was not used for tuning. Its six personas are simulated and its relevance judgments are internal—not external user research. Post-run judgment gaps remain flagged rather than being edited into v1.</p>
+      </section>
+
+      <section class="section">
+        <div class="case-grid reverse">
+          <div class="image-stack">
+            <figure class="image-frame">
+              <img src="../assets/img/nepal-wiki-map-project.jpg" alt="Live Nepal Energy Wiki map with the Upper Tamakoshi hydropower project selected">
+            </figure>
+            <p class="caption">Selecting Upper Tamakoshi on the live map exposes the project identity and capacity while preserving its national infrastructure context.</p>
+          </div>
+          <div class="case-copy">
+            <p class="eyebrow">Spatial navigation</p>
+            <h2>Readers can trace a claim across projects, basins, and transmission corridors.</h2>
+            <p>
+              Page–map bindings connect national claims to the places and infrastructure they
+              describe. A reader can move from a project or corridor to its source page, data
+              table, related claims, and unresolved questions without losing the geographic
+              context.
+            </p>
+            <ul class="evidence-links" aria-label="Nepal Energy Wiki technical evidence">
+              <li><a href="https://github.com/abinashkarki/NepalHydroAndEnergy/blob/main/docs/case-studies/transparentgov-nepal-energy-wiki.md" target="_blank" rel="noopener">Knowledge-system case study ↗</a></li>
+              <li><a href="https://github.com/abinashkarki/NepalHydroAndEnergy/blob/main/docs/case-studies/governance-as-code-adjacent-infrastructure.md" target="_blank" rel="noopener">Agent-governance case study ↗</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>© <span data-year></span> Abinash Karki</span>
+        <div class="footer-links">
+          <a href="../index.html">Home</a>
+          <a href="cross-modal-representations.html">Next: Cross-Modal</a>
+          <a href="mailto:karkiabinash777@gmail.com">Email</a>
+        </div>
+      </div>
+    </footer>
+    <script src="../assets/js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="TribeBills case study: multi-surface expense coordination product across backend, web, iOS, and AI receipt intelligence.">
+    <title>TribeBills — Abinash Karki</title>
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="../index.html"><span class="brand-mark">AK</span><span>Abinash Karki</span></a>
+        <div class="nav-links">
+          <a href="../index.html#work">Work</a>
+          <a aria-current="page" href="tribebills.html">TribeBills</a>
+          <a href="../writing.html">Writing</a>
+          <a href="../about.html">About</a>
+          <a href="../resume.html">Résumé</a>
+          <a class="nav-contact" href="mailto:karkiabinash777@gmail.com">Email</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="page">
+      <section class="case-hero">
+        <div>
+          <p class="eyebrow">Product systems</p>
+          <h1>TribeBills</h1>
+          <p class="lead">
+            A deployed AI-assisted expense product with instrumented OCR, independent circuit
+            breakers, manual fallback, and production data-integrity repair.
+          </p>
+          <div class="button-row">
+            <a class="button" href="https://tribebills.com/" target="_blank" rel="noopener">Open live product ↗</a>
+            <a class="button secondary" href="https://apps.apple.com/au/app/tribebills/id6746392287" target="_blank" rel="noopener">View App Store ↗</a>
+          </div>
+          <ul class="evidence-links" aria-label="TribeBills public evidence">
+            <li><a href="https://github.com/abinashkarki/tribeapp-frontend" target="_blank" rel="noopener">Public landing repository ↗</a></li>
+            <li><a href="https://abinashkarki.github.io/Abinash-Blog/tribebills-architecture.html" target="_blank" rel="noopener">Architecture essay ↗</a></li>
+            <li><a href="https://api.tribebills.com/health/ocr" target="_blank" rel="noopener">OCR service health ↗</a></li>
+          </ul>
+        </div>
+        <figure class="evidence-panel ios-shot">
+          <img src="../assets/img/tribebills-phone.png" alt="TribeBills iOS receipt review screen with extracted bill items">
+        </figure>
+      </section>
+
+      <section class="section compact">
+        <div class="case-summary">
+          <div class="summary-cell"><span>Model evaluation</span><strong>Offline labelled scorer</strong></div>
+          <div class="summary-cell"><span>Observability</span><strong>Usage + latency events</strong></div>
+          <div class="summary-cell"><span>Recovery</span><strong>2 independent breakers</strong></div>
+          <div class="summary-cell"><span>Status</span><strong>Web + iOS deployed</strong></div>
+        </div>
+      </section>
+
+      <section id="system" class="section">
+        <div class="case-grid">
+          <div class="case-copy">
+            <p class="eyebrow">The product journey</p>
+            <h2>From a receipt photo to a settled group expense.</h2>
+            <p>
+              A member creates a group, shares an invite, scans or uploads a receipt, reviews
+              the extracted items, assigns splits, and tracks settlement. Guest identity keeps
+              joining lightweight; registration can happen later without losing history.
+            </p>
+            <p>
+              Receipt intelligence accelerates data entry but never owns the financial record:
+              every item and amount remains editable before the bill is confirmed.
+            </p>
+            <p class="project-status">Built independently across backend, web, and iOS. Deployed and actively dogfooded; go-to-market work is currently paused.</p>
+          </div>
+          <div class="image-stack">
+            <figure class="image-frame phone-crop">
+              <img src="../assets/img/tribebills-phone.png" alt="TribeBills iOS receipt review interface">
+            </figure>
+            <p class="caption">The native flow keeps receipt extraction visible and reviewable before a split is committed.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Designed for degraded conditions</p>
+            <h2>AI speeds up the flow without becoming a point of failure.</h2>
+          </div>
+          <p>TribeBills coordinates money; model output remains editable and the product does not move funds between members.</p>
+        </div>
+        <div class="proof-flow">
+          <article class="proof-step"><h3>Capture</h3><p>Camera or upload starts a bill from the receipt already in hand.</p></article>
+          <article class="proof-step"><h3>Extract</h3><p>OCR and categorization propose editable items, totals, and categories.</p></article>
+          <article class="proof-step"><h3>Recover</h3><p>Independent circuit breakers and manual entry keep bill creation available.</p></article>
+          <article class="proof-step"><h3>Synchronize</h3><p>iOS can queue bill creation offline and reconcile when connectivity returns.</p></article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Shared product architecture</p>
+            <h2>One backend keeps behavior consistent across web and iOS.</h2>
+          </div>
+        </div>
+        <div class="section-media image-stack">
+          <figure class="image-frame browser-frame">
+            <img src="../assets/img/tribebills-web.jpg" alt="TribeBills web bill detail and settlement interface">
+          </figure>
+          <p class="caption">The web settlement surface is shown separately from the native receipt flow so each medium has a clear role.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Area</th>
+                <th>Implementation</th>
+                <th>Consequence</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>AI integration</td>
+                <td>Receipt extraction, item categorization, manual fallback, circuit breaker design.</td>
+                <td>A model failure does not prevent a member from creating a bill manually.</td>
+              </tr>
+              <tr>
+                <td>Backend maturity</td>
+                <td>108 routes, 12 Alembic migrations, rate limits, Docker, and cron-secured recurring processing.</td>
+                <td>Business rules remain consistent across the web and iOS clients.</td>
+              </tr>
+              <tr>
+                <td>Product detail</td>
+                <td>Guest identity, promotion path, account deletion, archive flows, legal pages, CSV export.</td>
+                <td>Groups can begin with low friction without losing history when a guest later registers.</td>
+              </tr>
+              <tr>
+                <td>Testing</td>
+                <td>74 web test files with 722 test cases, plus backend contract and integration tests.</td>
+                <td>Web flows and backend contracts are covered more deeply than the current native client.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="evolution" class="section">
+        <div class="case-grid reverse">
+          <div class="image-stack">
+            <figure class="image-frame"><img src="../assets/img/tribebills-architecture.png" alt="TribeBills architecture across iOS, web, API, database, and model services"></figure>
+          </div>
+          <div class="case-copy">
+            <p class="eyebrow">Architecture evolution</p>
+            <h2>The product outgrew its Firebase-first architecture.</h2>
+            <p>
+              The earliest client used Firebase and Firestore to reach a working product quickly.
+              As relational queries, payment histories, recurring schedules, and shared contracts
+              became more important, I moved the domain to a Postgres-backed API while retaining
+              Firebase authentication where it remained useful.
+            </p>
+            <p>
+              The current system contains 108 backend routes, 12 database migrations, roughly
+              722 web tests, and 94 Swift source files.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="case-grid">
+          <div class="case-copy">
+            <p class="eyebrow">Production learning</p>
+            <h2>Deployment exposed problems the feature list could not.</h2>
+            <p>
+              A data-integrity repair reconciled 34 bills and 57 splits while preserving the
+              underlying history. That work led to tighter invariants around bill totals,
+              participant splits, and migration behavior.
+            </p>
+            <p>
+              A separate production failure showed that analytics work could throw after a
+              successful payment update and surface a 500 response. Analytics was moved behind
+              a safe wrapper, given its own circuit breaker, and covered by regression tests so
+              an observability dependency cannot break a critical transaction.
+            </p>
+          </div>
+          <div class="callout blue">
+            <h3>Measured and still missing</h3>
+            <p>
+              Mixpanel records OCR use, processing time, categorization use, and suggestion
+              volume. A new offline harness scores merchant, total, tax, item, category,
+              latency, malformed-output, and run-consistency metrics from labelled receipts.
+              The real frozen dataset is not populated yet, so no accuracy or adoption claim is made.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>© <span data-year></span> Abinash Karki</span>
+        <div class="footer-links">
+          <a href="../index.html">Home</a>
+          <a href="nepal-energy-transparentgov.html">Next: Nepal Energy Wiki</a>
+          <a href="mailto:karkiabinash777@gmail.com">Email</a>
+        </div>
+      </div>
+    </footer>
+    <script src="../assets/js/main.js"></script>
+  </body>
+</html>

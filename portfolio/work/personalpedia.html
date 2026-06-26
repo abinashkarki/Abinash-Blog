@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="PersonalPedia case study: local-first MCP knowledge system with typed Markdown pages and agent tools.">
+    <title>PersonalPedia — Abinash Karki</title>
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="../index.html"><span class="brand-mark">AK</span><span>Abinash Karki</span></a>
+        <div class="nav-links">
+          <a href="../index.html#work">Work</a>
+          <a aria-current="page" href="personalpedia.html">PersonalPedia</a>
+          <a href="../writing.html">Writing</a>
+          <a href="../about.html">About</a>
+          <a href="../resume.html">Résumé</a>
+          <a class="nav-contact" href="mailto:karkiabinash777@gmail.com">Email</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="page">
+      <section class="case-hero">
+        <div>
+          <p class="eyebrow">Additional experiment · agent tooling</p>
+          <h1>PersonalPedia</h1>
+          <p class="lead">
+            Long-running AI work loses context. I built a local knowledge layer that gives
+            agents structured memory across projects and conversations.
+          </p>
+          <div class="button-row">
+            <a class="button" href="https://github.com/abinashkarki/PersonalPedia" target="_blank" rel="noopener">View repository ↗</a>
+          </div>
+        </div>
+        <div class="workflow-demo" aria-label="PersonalPedia context workflow">
+          <div class="workflow-node"><small>Capture</small><strong>Conversation</strong><p>Decisions, sources, and unfinished questions enter through agent tools.</p></div>
+          <div class="workflow-node"><small>Structure</small><strong>Typed pages</strong><p>Sources, entities, concepts, syntheses, and overviews remain distinct.</p></div>
+          <div class="workflow-node"><small>Link</small><strong>Local graph</strong><p>Plain Markdown and wikilinks preserve relationships without a closed database.</p></div>
+          <div class="workflow-node"><small>Recall</small><strong>Future sessions</strong><p>Agents retrieve relevant context instead of rebuilding it from scratch.</p></div>
+        </div>
+      </section>
+
+      <section class="section compact">
+        <div class="case-summary">
+          <div class="summary-cell"><span>Interface</span><strong>7 MCP tools</strong></div>
+          <div class="summary-cell"><span>Live instance</span><strong>71 private pages</strong></div>
+          <div class="summary-cell"><span>Storage</span><strong>Typed local Markdown</strong></div>
+          <div class="summary-cell"><span>Operations</span><strong>Structured activity log</strong></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="case-grid">
+          <div class="case-copy">
+            <p class="eyebrow">The system</p>
+            <h2>A working memory layer, not a chat transcript archive.</h2>
+            <p>
+              PersonalPedia is a working system I use to preserve context across projects and
+              conversations. The system decides what kind of knowledge a note represents,
+              how it links to existing material, and how later agents should retrieve it.
+            </p>
+            <ul>
+              <li>Seven MCP tools covering index, read, write, search, query, ingest, and maintenance.</li>
+              <li>Typed pages prevent source material from being confused with interpretation.</li>
+              <li>Local-first Markdown keeps the corpus portable, inspectable, and versionable.</li>
+              <li>Operating instructions make ingestion and maintenance repeatable across agents.</li>
+            </ul>
+            <p class="ownership-note">The reusable framework is public. The 71-page personal instance remains private; its scale is reported without exposing its contents.</p>
+            <p class="ownership-note">Evidence boundary: the public framework has no automated test suite or retrieval benchmark yet, so it is presented as an experiment rather than a flagship system.</p>
+          </div>
+          <div class="callout green">
+            <h3>Framework and instance</h3>
+            <p>
+              PersonalPedia separates the reusable system from a particular knowledge base.
+              The public framework contains the MCP server, schema, templates, example wiki,
+              and operating protocol; a personal instance can remain local while using the same tools.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>© <span data-year></span> Abinash Karki</span>
+        <div class="footer-links">
+          <a href="../index.html">Home</a>
+          <a href="tribebills.html">TribeBills</a>
+          <a href="mailto:karkiabinash777@gmail.com">Email</a>
+        </div>
+      </div>
+    </footer>
+    <script src="../assets/js/main.js"></script>
+  </body>
+</html>

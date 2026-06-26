@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Cross-Modal Representations case study: Scale250 benchmark, RSA/CKA, source-balanced multimodal representation research.">
+    <title>Cross-Modal Representations — Abinash Karki</title>
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="../index.html"><span class="brand-mark">AK</span><span>Abinash Karki</span></a>
+        <div class="nav-links">
+          <a href="../index.html#work">Work</a>
+          <a aria-current="page" href="cross-modal-representations.html">Research</a>
+          <a href="../writing.html">Writing</a>
+          <a href="../about.html">About</a>
+          <a href="../resume.html">Résumé</a>
+          <a class="nav-contact" href="mailto:karkiabinash777@gmail.com">Email</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="page">
+      <section class="case-hero">
+        <div>
+          <p class="eyebrow">Independent exploratory ML study</p>
+          <h1>Cross-Modal Representation Geometry</h1>
+          <p class="lead">
+            Holding the model panel constant, expanding the benchmark from 20 to 250 concepts
+            reduced measured language–image similarity from 0.2418 to 0.0199.
+          </p>
+          <div class="button-row">
+            <a class="button" href="https://github.com/abinashkarki/cross-modal-representations" target="_blank" rel="noopener">View repository ↗</a>
+            <a class="button secondary" href="https://github.com/abinashkarki/cross-modal-representations/blob/main/manuscript/paper.md" target="_blank" rel="noopener">Read manuscript ↗</a>
+          </div>
+        </div>
+        <figure class="evidence-panel">
+          <img src="../assets/img/scale250-benchmark-shift-cover.jpg" alt="Scale250 benchmark shift composed from dataset images, family results, and heatmaps">
+        </figure>
+      </section>
+
+      <section class="section compact">
+        <div class="case-summary">
+          <div class="summary-cell"><span>Main effect</span><strong>0.2418 → 0.0199 RSA</strong></div>
+          <div class="summary-cell"><span>Controlled variable</span><strong>Same 22-model panel</strong></div>
+          <div class="summary-cell"><span>Panel</span><strong>25 models</strong></div>
+          <div class="summary-cell"><span>Inference</span><strong>300 bootstraps · 3,000 permutations</strong></div>
+        </div>
+      </section>
+
+      <section id="result" class="section">
+        <div class="case-grid">
+          <div class="case-copy">
+            <p class="eyebrow">Primary result</p>
+            <h2>Benchmark scope changed the cross-modal conclusion.</h2>
+            <p>
+              On an earlier 20-concept benchmark, the same model panel appeared to show meaningful
+              language–image convergence. After expanding to a source-balanced 250-concept
+              benchmark, that estimate fell by an order of magnitude while within-family structure
+              remained strong.
+            </p>
+            <ul>
+              <li>Language–image RSA: <code>0.2418 → 0.0199</code> with the model roster held constant.</li>
+              <li>Language–language RSA: <code>0.6143</code>; all 28 pairs survived FDR correction.</li>
+              <li>Vision–vision RSA: <code>0.3827</code>; 43 of 45 pairs survived.</li>
+              <li>Direct language–vision RSA: <code>0.0155</code>; only 15 of 80 pairs survived.</li>
+              <li>Contrastive VLMs aligned <code>0.5003</code> with vision versus <code>0.0308</code> with language.</li>
+              <li>Autoregressive VLMs showed the same pattern: <code>0.5122</code> to vision versus <code>0.0404</code> to language.</li>
+            </ul>
+            <p class="ownership-note">Independent, solo-authored exploratory work run locally on an M1 Pro. It has not been peer reviewed. The public release includes code, manifests, checksums, smoke fixtures, and manuscript-facing outputs; large compiled artifacts remain indexed but do not yet have public download URLs.</p>
+          </div>
+          <div class="image-stack">
+            <figure class="image-frame">
+              <img src="../assets/img/scale250-corpus-to-geometry.jpg" alt="Scale250 image corpus, bridge-model analysis, and RSA versus CKA comparison">
+            </figure>
+            <p class="caption">The result begins with source balance: 250 concrete concepts, 3,750 images, and a heterogeneous panel of language, vision, and multimodal models.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="case-grid reverse">
+          <div class="image-stack">
+            <figure class="image-frame">
+              <img src="../assets/img/scale250-rsa-heatmap.png" alt="Baseline RSA heatmap">
+            </figure>
+            <figure class="image-frame">
+              <img src="../assets/img/scale250-rsa-cka.png" alt="RSA versus CKA scatter plot">
+            </figure>
+          </div>
+          <div class="case-copy">
+            <p class="eyebrow">Measurement</p>
+            <h2>Comparing geometry, not raw coordinates.</h2>
+            <p>
+              Each model turns the same concepts into a representational similarity matrix.
+              Spearman RSA then compares the structure of those matrices without requiring
+              their embedding coordinates or dimensions to match.
+            </p>
+            <p>
+              The result is tested with 300 image-bootstrap draws, 3,000-permutation Mantel tests,
+              FDR correction across 231 core-panel pairs, prompt controls, aligned-depth analysis,
+              quantization probes, and linear CKA as an alternate metric.
+            </p>
+            <div class="callout green">
+              <h3>Triangulating the result</h3>
+              <p>
+                RSA and linear CKA preserve the same family ordering, with Pearson
+                <code>0.7229</code> and Spearman <code>0.7050</code> agreement across pairs.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="repro" class="section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">What the final layer misses</p>
+            <h2>The strongest shared structure appears inside the network.</h2>
+          </div>
+          <p>Language–image agreement peaks at the aligned midpoint, while vision-family agreement peaks later and declines at the terminal layer. Final-layer-only analysis can miss the point where shared structure is most visible.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Dimension</th>
+                <th>Study design</th>
+                <th>Evidence boundary</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Dataset</td>
+                <td>250 concrete concepts spanning 10 semantic categories, with 15 images per concept from ImageNet, Open Images, and Unsplash.</td>
+                <td>Abstract concepts and compositionality are outside the final study.</td>
+              </tr>
+              <tr>
+                <td>Model panel</td>
+                <td>8 language models, 10 self-supervised vision models, 4 contrastive VLMs, and 3 autoregressive VLMs.</td>
+                <td>Language models stop at 4B parameters; the autoregressive extension contains three models.</td>
+              </tr>
+              <tr>
+                <td>Reproducibility</td>
+                <td>Canonical manifests, provenance ledgers, reconstruction scripts, checksums, environment specifications, and passing release checks.</td>
+                <td>Large compiled artifacts are indexed locally but do not yet have public download URLs.</td>
+              </tr>
+              <tr>
+                <td>Interpretation</td>
+                <td>The evidence supports family-local convergence and vision-anchored VLM geometry under this extraction regime.</td>
+                <td>It does not establish a universal account of all multimodal model internals.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>© <span data-year></span> Abinash Karki</span>
+        <div class="footer-links">
+          <a href="../index.html">Home</a>
+          <a href="personalpedia.html">Next: PersonalPedia</a>
+          <a href="mailto:karkiabinash777@gmail.com">Email</a>
+        </div>
+      </div>
+    </footer>
+    <script src="../assets/js/main.js"></script>
+  </body>
+</html>
