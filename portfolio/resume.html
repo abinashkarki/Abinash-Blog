@@ -12,6 +12,9 @@
     <header class="site-header">
       <nav class="nav" aria-label="Primary navigation">
         <a class="brand" href="index.html"><span class="brand-mark">AK</span><span>Abinash Karki</span></a>
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span class="hamburger"></span>
+        </button>
         <div class="nav-links">
           <a href="index.html#work">Work</a>
           <a href="writing.html">Writing</a>
@@ -27,29 +30,50 @@
         <div>
           <p class="eyebrow">Résumé</p>
           <h1>Abinash Karki</h1>
-          <p class="lead">Applied AI engineer building governed agent workflows, production AI systems, and reproducible model evaluation.</p>
+          <p class="lead">Applied AI engineer building AI-backed products, public knowledge systems, and model-evaluation research.</p>
           <ul class="evidence-links">
             <li>Sydney, Australia</li>
             <li><a href="mailto:karkiabinash777@gmail.com">karkiabinash777@gmail.com</a></li>
             <li><a href="https://github.com/abinashkarki" target="_blank" rel="noopener">GitHub ↗</a></li>
             <li><a href="https://www.linkedin.com/in/abinashkarki/" target="_blank" rel="noopener">LinkedIn ↗</a></li>
           </ul>
+          <div class="hero-actions no-print">
+            <button class="button" onclick="window.print()">Print / Save PDF</button>
+          </div>
         </div>
         <div class="callout green">
-          <h3>Core stack</h3>
-          <p>Python, FastAPI, PostgreSQL, TypeScript, Next.js, SwiftUI, PyTorch, Docker, model APIs, retrieval evaluation, MCP, RSA, and CKA.</p>
+          <h3>Current focus</h3>
+          <p>Turning messy inputs into useful systems: receipts into shared expenses, public reports into searchable knowledge, and model behavior into measurable evidence.</p>
         </div>
       </section>
 
       <section class="section">
         <div class="resume-entry">
-          <div><p class="eyebrow">2025–present</p><h2>Independent product and AI engineering</h2></div>
+          <div><p class="eyebrow">2026–present</p><h2>Knowledge system</h2></div>
+          <div class="case-copy">
+            <h3>Nepal Energy Wiki</h3>
+            <p>Built a public wiki about Nepal's energy sector with searchable data, interactive maps, and source-linked claims.</p>
+            <ul>
+              <li>Organized 388 wiki pages across sources, data, projects, concepts, claims, and synthesis pages.</li>
+              <li>Built a map explorer with 29 layers and 192 page-map bindings so projects, corridors, and basins can be inspected spatially.</li>
+              <li>Built semantic search over 3,122 chunks and 656 structured facts; 29 of 30 test queries returned the right page in the top 10.</li>
+              <li>Added 64 automated checks for search quality, source integrity, claim governance, and explorer performance.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="resume-entry">
+          <div><p class="eyebrow">2025–present</p><h2>Product engineering</h2></div>
           <div class="case-copy">
             <h3>TribeBills</h3>
-            <p>Designed, built, and deployed a shared-expense product across FastAPI/PostgreSQL, Next.js, and native SwiftUI.</p>
+            <p>Designed and deployed a shared-expense app across iOS and web: receipt scanning, bill splitting, payment tracking, and group settlement.</p>
             <ul>
-              <li>Built an editable receipt-extraction and category-constrained AI workflow with independent circuit breakers, manual fallback, and an offline labelled-evaluation harness.</li>
-              <li>Instrumented OCR usage and processing latency; added 429-aware recovery and product analytics isolated from critical transactions.</li>
+              <li>Built the flow from receipt capture to extracted items, editable review, group splits, and settlement tracking.</li>
+              <li>Moved the financial domain from a Firebase-first prototype into a Postgres-backed FastAPI service while retaining Firebase authentication.</li>
+              <li>Isolated OCR, analytics, and payment-side effects behind fallbacks and circuit breakers so assistive AI cannot block a critical transaction.</li>
+              <li>Added a receipt OCR evaluation harness; a frozen 40-receipt CORD robustness holdout reached 100% total accuracy, 90.5% tax accuracy, and 76.5 strict item F1.</li>
               <li>Maintained 722 web test cases across 74 files and repaired production referential integrity across 34 bills and 57 splits.</li>
             </ul>
           </div>
@@ -58,39 +82,15 @@
 
       <section class="section">
         <div class="resume-entry">
-          <div><p class="eyebrow">Education</p><h2>Information technology</h2></div>
-          <div class="case-copy">
-            <h3>BIT coursework · ISMT College, Kathmandu</h3>
-            <p>Completed the first two years of an Information Technology program before relocating to Australia; the degree was not completed. Coursework included data structures, object-oriented programming, networking, and mathematics for computing.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="resume-entry">
-          <div><p class="eyebrow">2026–present</p><h2>Agent systems and civic knowledge</h2></div>
-          <div class="case-copy">
-            <h3>Nepal Energy Wiki</h3>
-            <p>Built a public, source-linked research system where repository governance constrains AI-assisted editing.</p>
-            <ul>
-              <li>Improved a 50-query development retrieval suite from 46/50 to 50/50, then measured 29/30 top-10 retrieval and 0.740 MRR on a separately frozen internal holdout.</li>
-              <li>Reduced 696 structural template warnings to zero through 51 logged audit sessions.</li>
-              <li>Implemented 64 automated tests across search, source integrity, claim governance, and explorer performance.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="resume-entry">
-          <div><p class="eyebrow">2026</p><h2>Independent ML research</h2></div>
+          <div><p class="eyebrow">2026</p><h2>ML research</h2></div>
           <div class="case-copy">
             <h3>Scale250 cross-modal representation study</h3>
-            <p>Built a 25-model measurement pipeline comparing language, vision, and multimodal representation geometry.</p>
+            <p>Investigated whether language and vision models converge on similar concept representations.</p>
             <ul>
-              <li>Showed that expanding from 20 to 250 concepts reduced language–image RSA from 0.2418 to 0.0199 on the same model panel.</li>
-              <li>Used image bootstrap confidence intervals, 3,000-permutation Mantel tests, FDR correction, prompt controls, depth analysis, and CKA.</li>
-              <li>Published the manuscript, code, manifests, checksums, reconstruction scripts, and explicit reproducibility boundaries.</li>
+              <li>Tested 25 language, vision, and multimodal models on 250 concepts from three image sources.</li>
+              <li>Showed that a small benchmark made language and vision look more similar than they were; expanding from 20 to 250 concepts reduced language-image RSA from 0.2418 to 0.0199 on the same model panel.</li>
+              <li>Used bootstrap confidence intervals, 3,000-permutation Mantel tests, FDR correction, prompt controls, depth analysis, and CKA.</li>
+              <li>Published the manuscript, code, manifests, checksums, reconstruction scripts, and reproducibility boundaries.</li>
             </ul>
           </div>
         </div>
@@ -101,20 +101,30 @@
           <div><p class="eyebrow">2022</p><h2>Security research</h2></div>
           <div class="case-copy">
             <h3>SecurityPal · Research Analyst Intern</h3>
-            <p>Reviewed enterprise security questionnaires and translated technical assessment work into client-facing reports and presentations.</p>
+            <p>Reviewed enterprise security questionnaires, mapped customer inquiries to core security features, and translated technical systems documentation into client-facing security assurance reports.</p>
           </div>
         </div>
       </section>
 
       <section class="section">
         <div class="resume-entry">
-          <div><p class="eyebrow">Additional evidence</p><h2>Open source and tools</h2></div>
+          <div><p class="eyebrow">Background</p><h2>Self-directed software and AI</h2></div>
+          <div class="case-copy">
+            <h3>Information technology coursework · Nepal and Australia</h3>
+            <p>Studied information technology through formal coursework before shifting the center of gravity to self-directed software engineering. The practical credential is the work: shipped products, public knowledge systems, research code, and open-source contributions.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="resume-entry">
+          <div><p class="eyebrow">Additional evidence</p><h2>Tools and open source</h2></div>
           <div class="case-copy">
             <ul>
-              <li>Built PersonalPedia, a seven-tool MCP interface over a typed local Markdown knowledge graph.</li>
-              <li>Built earlier systems including a natural-language calendar and a character-level transformer.</li>
+              <li>Built PersonalPedia, a seven-tool MCP interface over a typed local Markdown knowledge graph for agent memory.</li>
+              <li>Built earlier systems including a natural-language calendar, an economic-data assistant, and a character-level transformer.</li>
+              <li>Core tools: Python, FastAPI, PostgreSQL, SQLAlchemy, Alembic, TypeScript, Next.js, SwiftUI, PyTorch, Docker, model APIs, retrieval evaluation, MCP, RSA, and CKA.</li>
             </ul>
-            <p class="ownership-note">This web résumé deliberately omits unsupported accuracy, adoption, cost-reduction, and conversion claims.</p>
           </div>
         </div>
       </section>

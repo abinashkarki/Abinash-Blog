@@ -12,6 +12,9 @@
     <header class="site-header">
       <nav class="nav" aria-label="Primary navigation">
         <a class="brand" href="../index.html"><span class="brand-mark">AK</span><span>Abinash Karki</span></a>
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span class="hamburger"></span>
+        </button>
         <div class="nav-links">
           <a href="../index.html#work">Work</a>
           <a aria-current="page" href="tribebills.html">TribeBills</a>
@@ -26,11 +29,11 @@
     <main class="page">
       <section class="case-hero">
         <div>
-          <p class="eyebrow">Product systems</p>
+          <p class="eyebrow">Shared expense management · iOS + Web</p>
           <h1>TribeBills</h1>
           <p class="lead">
-            A deployed AI-assisted expense product with instrumented OCR, independent circuit
-            breakers, manual fallback, and production data-integrity repair.
+            Track your spending, scan your receipts, split bills with your group, and settle up.
+            TribeBills is a deployed expense app for iOS and web that makes shared money less awkward.
           </p>
           <div class="button-row">
             <a class="button" href="https://tribebills.com/" target="_blank" rel="noopener">Open live product ↗</a>
@@ -42,17 +45,17 @@
             <li><a href="https://api.tribebills.com/health/ocr" target="_blank" rel="noopener">OCR service health ↗</a></li>
           </ul>
         </div>
-        <figure class="evidence-panel ios-shot">
-          <img src="../assets/img/tribebills-phone.png" alt="TribeBills iOS receipt review screen with extracted bill items">
+        <figure class="evidence-panel">
+          <img src="../assets/img/tribebills-smart-scan-showcase.jpg" alt="TribeBills Smart Scan screen extracting items from a receipt">
         </figure>
       </section>
 
       <section class="section compact">
         <div class="case-summary">
-          <div class="summary-cell"><span>Model evaluation</span><strong>Offline labelled scorer</strong></div>
-          <div class="summary-cell"><span>Observability</span><strong>Usage + latency events</strong></div>
-          <div class="summary-cell"><span>Recovery</span><strong>2 independent breakers</strong></div>
-          <div class="summary-cell"><span>Status</span><strong>Web + iOS deployed</strong></div>
+          <div class="summary-cell"><span>Platforms</span><strong>iOS + Web</strong></div>
+          <div class="summary-cell"><span>AI</span><strong>receipt scanning</strong></div>
+          <div class="summary-cell"><span>Groups</span><strong>create · share · split · settle</strong></div>
+          <div class="summary-cell"><span>Status</span><strong>live on the App Store</strong></div>
         </div>
       </section>
 
@@ -73,10 +76,10 @@
             <p class="project-status">Built independently across backend, web, and iOS. Deployed and actively dogfooded; go-to-market work is currently paused.</p>
           </div>
           <div class="image-stack">
-            <figure class="image-frame phone-crop">
-              <img src="../assets/img/tribebills-phone.png" alt="TribeBills iOS receipt review interface">
+            <figure class="image-frame">
+              <img src="../assets/img/tribebills-scan-extract-settle.jpg" alt="TribeBills flow from scanning a receipt to extracted items and split settlement">
             </figure>
-            <p class="caption">The native flow keeps receipt extraction visible and reviewable before a split is committed.</p>
+            <p class="caption">The core flow moves from receipt capture to extracted items and then to group split and settlement review.</p>
           </div>
         </div>
       </section>
@@ -87,7 +90,7 @@
             <p class="eyebrow">Designed for degraded conditions</p>
             <h2>AI speeds up the flow without becoming a point of failure.</h2>
           </div>
-          <p>TribeBills coordinates money; model output remains editable and the product does not move funds between members.</p>
+          <p>TribeBills coordinates shared expenses; model output remains editable and the product does not move funds between members.</p>
         </div>
         <div class="proof-flow">
           <article class="proof-step"><h3>Capture</h3><p>Camera or upload starts a bill from the receipt already in hand.</p></article>
@@ -95,6 +98,33 @@
           <article class="proof-step"><h3>Recover</h3><p>Independent circuit breakers and manual entry keep bill creation available.</p></article>
           <article class="proof-step"><h3>Synchronize</h3><p>iOS can queue bill creation offline and reconcile when connectivity returns.</p></article>
         </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Receipt OCR evaluation</p>
+            <h2>The extraction path now has labelled evidence.</h2>
+          </div>
+          <p>
+            The evaluation harness scores merchant, total, tax, item, category,
+            latency, malformed-output, and consistency fields from saved model
+            runs. Public CORD receipts are reported as an Indonesian robustness
+            slice; private Australian receipts are reported separately.
+          </p>
+        </div>
+        <div class="evidence-list compact-evidence">
+          <div><strong>40 / 40 CORD runs completed</strong><span>with no malformed or empty predictions on the frozen robustness holdout.</span></div>
+          <div><strong>39 labelled totals checked</strong><span>with every total matching the labelled CORD receipt value.</span></div>
+          <div><strong>21 labelled tax fields checked</strong><span>with 90.5% matching the labelled CORD receipt tax value.</span></div>
+          <div><strong>76.5 strict item F1</strong><span>with matched item prices correct on every matched item.</span></div>
+        </div>
+        <p class="ownership-note">
+          The Australian/local confirmation set is smaller and was OCR-prefilled
+          before human review: 13/13 confirmed receipts matched on merchant,
+          total, tax, item names, prices, and categories after category-ID
+          normalization. It is useful domain evidence, not a blinded benchmark.
+        </p>
       </section>
 
       <section class="section">
@@ -126,7 +156,7 @@
                 <td>A model failure does not prevent a member from creating a bill manually.</td>
               </tr>
               <tr>
-                <td>Backend maturity</td>
+                <td>Backend</td>
                 <td>108 routes, 12 Alembic migrations, rate limits, Docker, and cron-secured recurring processing.</td>
                 <td>Business rules remain consistent across the web and iOS clients.</td>
               </tr>
@@ -151,48 +181,46 @@
             <figure class="image-frame"><img src="../assets/img/tribebills-architecture.png" alt="TribeBills architecture across iOS, web, API, database, and model services"></figure>
           </div>
           <div class="case-copy">
-            <p class="eyebrow">Architecture evolution</p>
-            <h2>The product outgrew its Firebase-first architecture.</h2>
+            <p class="eyebrow">Product maturity</p>
+            <h2>The system changed as the use cases became more real.</h2>
             <p>
-              The earliest client used Firebase and Firestore to reach a working product quickly.
-              As relational queries, payment histories, recurring schedules, and shared contracts
-              became more important, I moved the domain to a Postgres-backed API while retaining
-              Firebase authentication where it remained useful.
+              TribeBills started with a faster Firebase-first path while the product shape was
+              still forming. As the app grew into payment histories, recurring bills, guest access,
+              settlement review, and web/iOS parity, the core financial domain moved into a
+              Postgres-backed FastAPI service.
             </p>
             <p>
-              The current system contains 108 backend routes, 12 database migrations, roughly
-              722 web tests, and 94 Swift source files.
+              That shift made the important rules explicit: how bills total, how splits belong to
+              participants, how payments move through review, and how recurring schedules are
+              generated. The goal was not a larger backend; it was one place where the financial
+              logic stays consistent.
+            </p>
+            <p>
+              Production work then became product design. Data repairs tightened bill and split
+              invariants, analytics was isolated from payment updates, OCR gained fallback paths,
+              and regression tests covered the places where a shared financial record can break.
             </p>
           </div>
         </div>
+        <div class="evidence-list compact-evidence">
+          <div><strong>108 API routes</strong><span>cover users, groups, bills, payments, recurring schedules, export, and subscriptions.</span></div>
+          <div><strong>12 database migrations</strong><span>mark the move from a faster prototype path into a Postgres-backed financial domain.</span></div>
+          <div><strong>722 web tests</strong><span>cover product flows and backend contracts where shared financial records can break.</span></div>
+          <div><strong>34 bills / 57 splits repaired</strong><span>with history preserved, then protected by tighter invariants.</span></div>
+        </div>
       </section>
 
-      <section class="section">
-        <div class="case-grid">
-          <div class="case-copy">
-            <p class="eyebrow">Production learning</p>
-            <h2>Deployment exposed problems the feature list could not.</h2>
-            <p>
-              A data-integrity repair reconciled 34 bills and 57 splits while preserving the
-              underlying history. That work led to tighter invariants around bill totals,
-              participant splits, and migration behavior.
-            </p>
-            <p>
-              A separate production failure showed that analytics work could throw after a
-              successful payment update and surface a 500 response. Analytics was moved behind
-              a safe wrapper, given its own circuit breaker, and covered by regression tests so
-              an observability dependency cannot break a critical transaction.
-            </p>
-          </div>
-          <div class="callout blue">
-            <h3>Measured and still missing</h3>
-            <p>
-              Mixpanel records OCR use, processing time, categorization use, and suggestion
-              volume. A new offline harness scores merchant, total, tax, item, category,
-              latency, malformed-output, and run-consistency metrics from labelled receipts.
-              The real frozen dataset is not populated yet, so no accuracy or adoption claim is made.
-            </p>
-          </div>
+      <section class="section compact">
+        <div class="callout blue full-note">
+          <h3>Measured and still missing</h3>
+          <p>
+            Mixpanel records OCR use, processing time, categorization use, and suggestion
+            volume. A new offline harness scores merchant, total, tax, item, category,
+            latency, malformed-output, and run-consistency metrics from labelled receipts. The
+            strongest current result is a frozen 40-receipt CORD robustness holdout. The
+            Australian receipt set is treated as local confirmation evidence for now; a broader
+            production accuracy claim needs a larger blinded set.
+          </p>
         </div>
       </section>
     </main>

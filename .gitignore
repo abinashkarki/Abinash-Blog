@@ -1,0 +1,6 @@
+.DS_Store
+.aider*
+.playwright-cli/
+portfolio/.playwright-cli/
+portfolio/output/
+portfolio/design-options/

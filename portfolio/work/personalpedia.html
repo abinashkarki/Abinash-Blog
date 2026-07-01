@@ -12,6 +12,9 @@
     <header class="site-header">
       <nav class="nav" aria-label="Primary navigation">
         <a class="brand" href="../index.html"><span class="brand-mark">AK</span><span>Abinash Karki</span></a>
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span class="hamburger"></span>
+        </button>
         <div class="nav-links">
           <a href="../index.html#work">Work</a>
           <a aria-current="page" href="personalpedia.html">PersonalPedia</a>
@@ -26,7 +29,7 @@
     <main class="page">
       <section class="case-hero">
         <div>
-          <p class="eyebrow">Additional experiment · agent tooling</p>
+          <p class="eyebrow">Supporting system · agent memory</p>
           <h1>PersonalPedia</h1>
           <p class="lead">
             Long-running AI work loses context. I built a local knowledge layer that gives
@@ -63,6 +66,10 @@
               conversations. The system decides what kind of knowledge a note represents,
               how it links to existing material, and how later agents should retrieve it.
             </p>
+            <p>
+              I use it to track decisions, sources, and open questions across work like
+              TribeBills, the Nepal Energy Wiki, and long-running portfolio/research sessions.
+            </p>
             <ul>
               <li>Seven MCP tools covering index, read, write, search, query, ingest, and maintenance.</li>
               <li>Typed pages prevent source material from being confused with interpretation.</li>
@@ -72,13 +79,19 @@
             <p class="ownership-note">The reusable framework is public. The 71-page personal instance remains private; its scale is reported without exposing its contents.</p>
             <p class="ownership-note">Evidence boundary: the public framework has no automated test suite or retrieval benchmark yet, so it is presented as an experiment rather than a flagship system.</p>
           </div>
-          <div class="callout green">
-            <h3>Framework and instance</h3>
-            <p>
-              PersonalPedia separates the reusable system from a particular knowledge base.
-              The public framework contains the MCP server, schema, templates, example wiki,
-              and operating protocol; a personal instance can remain local while using the same tools.
-            </p>
+          <div class="image-stack">
+            <figure class="image-frame">
+              <img src="../assets/img/personalpedia-relationship-map.png" alt="PersonalPedia local Markdown knowledge graph and wiki relationships interface">
+            </figure>
+            <p class="caption">The relationship map shows how individual Markdown files link together across concepts, entities, and project overviews.</p>
+            <div class="callout green">
+              <h3>Framework and instance</h3>
+              <p>
+                PersonalPedia separates the reusable system from a particular knowledge base.
+                The public framework contains the MCP server, schema, templates, example wiki,
+                and operating protocol; a personal instance can remain local while using the same tools.
+              </p>
+            </div>
           </div>
         </div>
       </section>

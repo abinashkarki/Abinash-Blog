@@ -12,6 +12,9 @@
     <header class="site-header">
       <nav class="nav" aria-label="Primary navigation">
         <a class="brand" href="../index.html"><span class="brand-mark">AK</span><span>Abinash Karki</span></a>
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span class="hamburger"></span>
+        </button>
         <div class="nav-links">
           <a href="../index.html#work">Work</a>
           <a aria-current="page" href="cross-modal-representations.html">Research</a>
@@ -23,39 +26,39 @@
       </nav>
     </header>
 
-    <main class="page">
-      <section class="case-hero">
+    <main class="page research-page">
+      <section class="case-hero research-hero">
         <div>
-          <p class="eyebrow">Independent exploratory ML study</p>
+          <p class="eyebrow">Independent ML research</p>
           <h1>Cross-Modal Representation Geometry</h1>
           <p class="lead">
-            Holding the model panel constant, expanding the benchmark from 20 to 250 concepts
-            reduced measured language–image similarity from 0.2418 to 0.0199.
+            Do language models and vision models end up representing the world in similar ways?
+            I tested 25 models on 250 concepts, and the apparent convergence almost entirely disappeared.
           </p>
           <div class="button-row">
             <a class="button" href="https://github.com/abinashkarki/cross-modal-representations" target="_blank" rel="noopener">View repository ↗</a>
             <a class="button secondary" href="https://github.com/abinashkarki/cross-modal-representations/blob/main/manuscript/paper.md" target="_blank" rel="noopener">Read manuscript ↗</a>
           </div>
         </div>
-        <figure class="evidence-panel">
+        <figure class="evidence-panel research-hero-figure">
           <img src="../assets/img/scale250-benchmark-shift-cover.jpg" alt="Scale250 benchmark shift composed from dataset images, family results, and heatmaps">
         </figure>
       </section>
 
       <section class="section compact">
         <div class="case-summary">
-          <div class="summary-cell"><span>Main effect</span><strong>0.2418 → 0.0199 RSA</strong></div>
-          <div class="summary-cell"><span>Controlled variable</span><strong>Same 22-model panel</strong></div>
-          <div class="summary-cell"><span>Panel</span><strong>25 models</strong></div>
-          <div class="summary-cell"><span>Inference</span><strong>300 bootstraps · 3,000 permutations</strong></div>
+          <div class="summary-cell"><span>Question</span><strong>do language and vision converge?</strong></div>
+          <div class="summary-cell"><span>Models</span><strong>25 across 4 families</strong></div>
+          <div class="summary-cell"><span>Concepts</span><strong>250 · 3 image sources</strong></div>
+          <div class="summary-cell"><span>Finding</span><strong>family-local convergence</strong></div>
         </div>
       </section>
 
       <section id="result" class="section">
-        <div class="case-grid">
+        <div class="case-grid research-result-grid">
           <div class="case-copy">
             <p class="eyebrow">Primary result</p>
-            <h2>Benchmark scope changed the cross-modal conclusion.</h2>
+            <h2>A small benchmark made language and vision look alike. A larger one did not.</h2>
             <p>
               On an earlier 20-concept benchmark, the same model panel appeared to show meaningful
               language–image convergence. After expanding to a source-balanced 250-concept
@@ -63,27 +66,25 @@
               remained strong.
             </p>
             <ul>
-              <li>Language–image RSA: <code>0.2418 → 0.0199</code> with the model roster held constant.</li>
-              <li>Language–language RSA: <code>0.6143</code>; all 28 pairs survived FDR correction.</li>
-              <li>Vision–vision RSA: <code>0.3827</code>; 43 of 45 pairs survived.</li>
-              <li>Direct language–vision RSA: <code>0.0155</code>; only 15 of 80 pairs survived.</li>
-              <li>Contrastive VLMs aligned <code>0.5003</code> with vision versus <code>0.0308</code> with language.</li>
-              <li>Autoregressive VLMs showed the same pattern: <code>0.5122</code> to vision versus <code>0.0404</code> to language.</li>
+              <li>The language-image signal dropped from <code>0.2418</code> to <code>0.0199</code> when the benchmark expanded from 20 to 250 concepts.</li>
+              <li>Language models still agreed strongly with other language models; vision models still agreed with other vision models.</li>
+              <li>Direct language-vision agreement was weak: only 15 of 80 pairs survived correction.</li>
+              <li>Multimodal models aligned far more with vision than with language across both contrastive and autoregressive families.</li>
             </ul>
             <p class="ownership-note">Independent, solo-authored exploratory work run locally on an M1 Pro. It has not been peer reviewed. The public release includes code, manifests, checksums, smoke fixtures, and manuscript-facing outputs; large compiled artifacts remain indexed but do not yet have public download URLs.</p>
           </div>
-          <div class="image-stack">
+          <div class="image-stack research-side-figure">
             <figure class="image-frame">
               <img src="../assets/img/scale250-corpus-to-geometry.jpg" alt="Scale250 image corpus, bridge-model analysis, and RSA versus CKA comparison">
             </figure>
-            <p class="caption">The result begins with source balance: 250 concrete concepts, 3,750 images, and a heterogeneous panel of language, vision, and multimodal models.</p>
+            <p class="caption">The study starts from source balance: 250 concrete concepts, 3,750 images, and a panel of language, vision, and multimodal models.</p>
           </div>
         </div>
       </section>
 
       <section class="section">
         <div class="case-grid reverse">
-          <div class="image-stack">
+          <div class="image-stack research-figure-stack">
             <figure class="image-frame">
               <img src="../assets/img/scale250-rsa-heatmap.png" alt="Baseline RSA heatmap">
             </figure>
@@ -92,15 +93,15 @@
             </figure>
           </div>
           <div class="case-copy">
-            <p class="eyebrow">Measurement</p>
-            <h2>Comparing geometry, not raw coordinates.</h2>
+            <p class="eyebrow">How it was measured</p>
+            <h2>Comparing model geometry, not raw coordinates.</h2>
             <p>
               Each model turns the same concepts into a representational similarity matrix.
               Spearman RSA then compares the structure of those matrices without requiring
               their embedding coordinates or dimensions to match.
             </p>
             <p>
-              The result is tested with 300 image-bootstrap draws, 3,000-permutation Mantel tests,
+              The finding is tested with 300 image-bootstrap draws, 3,000-permutation Mantel tests,
               FDR correction across 231 core-panel pairs, prompt controls, aligned-depth analysis,
               quantization probes, and linear CKA as an alternate metric.
             </p>
@@ -123,38 +124,27 @@
           </div>
           <p>Language–image agreement peaks at the aligned midpoint, while vision-family agreement peaks later and declines at the terminal layer. Final-layer-only analysis can miss the point where shared structure is most visible.</p>
         </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Dimension</th>
-                <th>Study design</th>
-                <th>Evidence boundary</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Dataset</td>
-                <td>250 concrete concepts spanning 10 semantic categories, with 15 images per concept from ImageNet, Open Images, and Unsplash.</td>
-                <td>Abstract concepts and compositionality are outside the final study.</td>
-              </tr>
-              <tr>
-                <td>Model panel</td>
-                <td>8 language models, 10 self-supervised vision models, 4 contrastive VLMs, and 3 autoregressive VLMs.</td>
-                <td>Language models stop at 4B parameters; the autoregressive extension contains three models.</td>
-              </tr>
-              <tr>
-                <td>Reproducibility</td>
-                <td>Canonical manifests, provenance ledgers, reconstruction scripts, checksums, environment specifications, and passing release checks.</td>
-                <td>Large compiled artifacts are indexed locally but do not yet have public download URLs.</td>
-              </tr>
-              <tr>
-                <td>Interpretation</td>
-                <td>The evidence supports family-local convergence and vision-anchored VLM geometry under this extraction regime.</td>
-                <td>It does not establish a universal account of all multimodal model internals.</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="study-grid">
+          <article class="study-card">
+            <span>Dataset</span>
+            <p>250 concrete concepts spanning 10 semantic categories, with 15 images per concept from ImageNet, Open Images, and Unsplash.</p>
+            <small>Abstract concepts and compositionality are outside the final study.</small>
+          </article>
+          <article class="study-card">
+            <span>Model panel</span>
+            <p>8 language models, 10 self-supervised vision models, 4 contrastive VLMs, and 3 autoregressive VLMs.</p>
+            <small>Language models stop at 4B parameters; the autoregressive extension contains three models.</small>
+          </article>
+          <article class="study-card">
+            <span>Reproducibility</span>
+            <p>Canonical manifests, provenance ledgers, reconstruction scripts, checksums, environment specifications, and passing release checks.</p>
+            <small>Large compiled artifacts are indexed locally but do not yet have public download URLs.</small>
+          </article>
+          <article class="study-card">
+            <span>Interpretation</span>
+            <p>The evidence supports family-local convergence and vision-anchored VLM geometry under this extraction regime.</p>
+            <small>It does not establish a universal account of all multimodal model internals.</small>
+          </article>
         </div>
       </section>
     </main>
