@@ -1,252 +1,135 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abinash Karki — Building in the Symbiotic Age</title>
-    <meta name="description" content="Exploring the journey of human-AI collaboration. Thoughts on machine learning, vibe coding, and building real products.">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
-    <!-- Styles -->
-    <link rel="stylesheet" href="styles.css?v=9">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <nav class="container">
-            <a href="index.html" class="logo">Abinash<span>.</span></a>
-            <div class="nav-links">
-                <a href="portfolio/">Portfolio</a>
-                <a href="#articles">Articles</a>
-                <a href="#about">About</a>
-                <a href="https://github.com/abinashkarki" target="_blank">GitHub</a>
-            </div>
-        </nav>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Technical writing by Abinash Karki on production AI, product engineering, research, and building with intelligent tools.">
+    <link rel="canonical" href="https://abinashkarki.github.io/Abinash-Blog/">
+    <meta property="og:title" content="Writing — Abinash Karki">
+    <meta property="og:description" content="Architecture notes, research methods, production lessons, and longer explanations of the work.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://abinashkarki.github.io/Abinash-Blog/">
+    <meta property="og:image" content="https://abinashkarki.github.io/Abinash-Blog/portfolio/assets/img/writing-control-surface-hero.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Writing — Abinash Karki</title>
+    <link rel="icon" href="portfolio/assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="portfolio/assets/css/styles.css">
+  </head>
+  <body class="writing-home">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="portfolio/index.html" aria-label="Abinash Karki, home">
+          <span class="brand-mark">AK</span>
+          <span>Abinash Karki</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+          <span class="hamburger"></span>
+        </button>
+        <div class="nav-links">
+          <a href="portfolio/index.html#work">Work</a>
+          <a aria-current="page" href="index.html#articles">Writing</a>
+          <a href="portfolio/about.html">About</a>
+          <a href="portfolio/resume.html">Résumé</a>
+          <a class="nav-contact" href="mailto:karkiabinash777@gmail.com">Let&apos;s talk ↗</a>
+        </div>
+      </nav>
     </header>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h1>
-                        Exploring the intersection of <mark class="hero-highlight">code</mark> and curiosity.
-                    </h1>
-                    <p class="tagline">
-                        Documenting the journey of building software with AI assistance, understanding deep learning,
-                        and sharing personal growth experiments.
-                    </p>
-                    
-                    <div class="hero-cta">
-                        <a href="#articles" class="btn btn-primary">
-                            <i class="fas fa-book-open"></i>
-                            Read Articles
-                        </a>
-                        <a href="portfolio/" class="btn btn-secondary">
-                            <i class="fas fa-briefcase"></i>
-                            View Portfolio
-                        </a>
-                        <a href="#about" class="btn btn-secondary">
-                            <i class="fas fa-user"></i>
-                            About Me
-                        </a>
-                    </div>
-                </div>
+    <main id="main">
+      <section class="page writing-home-hero">
+        <p class="hero-status"><span aria-hidden="true"></span>Writing archive · architecture / research / production</p>
+        <div class="writing-home-grid">
+          <div>
+            <p class="eyebrow">Field notes</p>
+            <h1>The work, with the reasoning left in.</h1>
+            <p class="lead">Longer notes on building products, working with AI, measuring systems, and learning what changes after the first prototype.</p>
+          </div>
+          <aside class="operating-brief" aria-label="About this archive">
+            <p class="brief-label">What lives here</p>
+            <p>Architecture decisions, research methods, production lessons, and the occasional honest account of how a system got from an idea to something people can use.</p>
+            <div class="hero-actions">
+              <a class="button" href="#articles">Browse the archive ↓</a>
+              <a class="button secondary" href="portfolio/index.html">View the work →</a>
             </div>
-        </section>
+          </aside>
+        </div>
+        <div class="proof-strip" aria-label="Archive summary">
+          <div><strong>04</strong><span>Published pieces</span></div>
+          <div><strong>03</strong><span>Production systems covered</span></div>
+          <div><strong>01</strong><span>Shared design system</span></div>
+        </div>
+      </section>
 
-        <!-- Articles Section -->
-        <section id="articles" class="section">
-            <div class="container">
-                <div class="section-header">
-                    <p class="section-label">Writing</p>
-                    <h2 class="section-title">Latest Explorations</h2>
-                </div>
-                
-                <div class="articles-grid">
-                    <!-- Featured Article -->
-                    <article class="article-card featured reveal">
-                        <div class="article-content">
-                            <span class="date">May 13, 2026</span>
-                            <h3>Knowledge Work, With Tests: A Year of Building a Public Research Wiki With LLM Agents</h3>
-                            <p>
-                                A year of building a public research wiki on Nepal's electricity system
-                                with LLM agents — drafted, linked, refined, and pressure-tested across
-                                many sessions. The pattern that held it together: knowledge work scales
-                                the same way a codebase does — versioned rules, validators, tests, and
-                                a build that fails when the rules are broken.
-                            </p>
-                            <a href="knowledge-work-with-tests.html" class="read-more">Read Article</a>
-                        </div>
-                        <div class="article-image">
-                            <img src="images/repository-as-control-surface-hero.png" alt="A stylized illustration of a public wiki being edited by translucent agent figures, surrounded by five glowing rule-tablets labeled Hierarchy, Ontology, Templates, Validators, and Audit.">
-                        </div>
-                    </article>
+      <section id="articles" class="page section writing-archive">
+        <div class="section-head portfolio-section-head">
+          <div>
+            <p class="eyebrow">Writing / 01—04</p>
+            <h2>Notes from the build.</h2>
+          </div>
+          <p>Not a feed of hot takes. These are working documents: what was built, what broke, what the evidence changed, and what I would do differently now.</p>
+        </div>
 
-                    <!-- Regular Articles -->
-                    <article class="article-card reveal">
-                        <span class="date">April 9, 2026</span>
-                        <h3>Building TribeBills: Architecture of a Solo-Built Fintech Platform</h3>
-                        <p>
-                            A deep dive into the architecture of TribeBills — a multi-surface fintech
-                            platform I built and operate as the sole engineer. iOS app, web frontend,
-                            FastAPI backend, AI-powered receipt parsing, and the engineering decisions
-                            behind it all.
-                        </p>
-                        <a href="tribebills-architecture.html" class="read-more">Read Article</a>
-                    </article>
-
-                    <article class="article-card reveal">
-                        <span class="date">December 13, 2025</span>
-                        <h3>Vibe Coding: The Journey of Building Software with AI Assistance</h3>
-                        <p>
-                            What if you could describe the software you want, and a machine would build it 
-                            for you as you speak? Exploring the symbiotic relationship between developers 
-                            and AI tools, from tutorials to production.
-                        </p>
-                        <a href="vibe-coding-journey.html" class="read-more">Read Article</a>
-                    </article>
-                    
-                    <article class="article-card reveal">
-                        <span class="date">August 15, 2024</span>
-                        <h3>Training GPT from Scratch on a MacBook</h3>
-                        <p>
-                            Exploring the process of training a GPT model using Apple's Metal Performance 
-                            Shaders. Consumer hardware is more powerful than you think.
-                        </p>
-                        <a href="gpt_mac.html" class="read-more">Read Article</a>
-                    </article>
-                    
-                    <article class="article-card reveal">
-                        <span class="date">September 19, 2024</span>
-                        <h3>Introducing Smart Calendar</h3>
-                        <p>
-                            A natural language calendar that molds itself around your way of planning. 
-                            Sometimes, less is more in prompt engineering.
-                        </p>
-                        <a href="introducing-smart-calendar.html" class="read-more">Read Article</a>
-                    </article>
-                </div>
+        <div class="writing-list">
+          <article class="writing-entry writing-entry-featured">
+            <div class="writing-meta"><span>May 13, 2026</span><span>Knowledge systems</span><a href="knowledge-work-with-tests.html">Read ↗</a></div>
+            <div class="writing-copy">
+              <h3><a href="knowledge-work-with-tests.html">Knowledge Work, With Tests: A Year of Building a Public Research Wiki With LLM Agents</a></h3>
+              <p>A year of building a public research wiki on Nepal&apos;s electricity system with LLM agents — drafted, linked, refined, and pressure-tested across many sessions. The pattern that held it together: knowledge work scales the same way a codebase does, with rules, validators, tests, and a build that fails when the rules are broken.</p>
             </div>
-        </section>
+          </article>
 
-        <!-- About Section -->
-        <section id="about" class="section">
-            <div class="container">
-                <div class="about-content">
-                    <div class="about-text">
-                        <h2>Hi, I'm Abinash 👋</h2>
-                        <p class="lead">
-                            I'm a builder exploring the frontier of human-AI collaboration. 
-                            I believe in learning by doing, shipping real products, and 
-                            breadth creating depth.
-                        </p>
-                        <p>
-                            This blog is my digital notebook — a space to share insights from 
-                            navigating the vast world of AI. Whether it's training GPT on a MacBook, 
-                            building apps with natural language, or reflecting on what "vibe coding" 
-                            really means, I write to make complex ideas accessible.
-                        </p>
-                        <p>
-                            When I'm not coding, I'm probably thinking about the philosophical 
-                            implications of our tools becoming collaborators.
-                        </p>
-                        
-                        <div class="tech-tags">
-                            <span class="tech-tag">Machine Learning</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Swift</span>
-                            <span class="tech-tag">FastAPI</span>
-                            <span class="tech-tag">LLMs</span>
-                            <span class="tech-tag">iOS</span>
-                        </div>
-                    </div>
-                    
-                    <div class="about-visual">
-                        <div class="orbit-container">
-                            <div class="orbit"></div>
-                            <div class="orbit"></div>
-                            <div class="orbit"></div>
-                            <div class="center-icon">🧠</div>
-                        </div>
-                    </div>
-                </div>
+          <article class="writing-entry">
+            <div class="writing-meta"><span>April 9, 2026</span><span>Product architecture</span><a href="tribebills-architecture.html">Read ↗</a></div>
+            <div class="writing-copy">
+              <h3><a href="tribebills-architecture.html">Building TribeBills: Architecture of a Solo-Built Fintech Platform</a></h3>
+              <p>The decisions behind a live shared-expense product across iOS and web: receipt intelligence, guest identity, PostgreSQL, billing, failure handling, and the discipline of operating every layer yourself.</p>
             </div>
-        </section>
+          </article>
+
+          <article class="writing-entry">
+            <div class="writing-meta"><span>December 13, 2025</span><span>AI-assisted development</span><a href="vibe-coding-journey.html">Read ↗</a></div>
+            <div class="writing-copy">
+              <h3><a href="vibe-coding-journey.html">Vibe Coding: The Journey of Building Software with AI Assistance</a></h3>
+              <p>From tutorials to production: a personal account of learning to work with AI tools, building TribeBills, and finding a useful balance between intent, verification, and execution.</p>
+            </div>
+          </article>
+
+          <article class="writing-entry">
+            <div class="writing-meta"><span>August 15, 2024</span><span>Machine learning</span><a href="gpt_mac.html">Read ↗</a></div>
+            <div class="writing-copy">
+              <h3><a href="gpt_mac.html">Training GPT from Scratch on a MacBook</a></h3>
+              <p>A practical exploration of training a small GPT-style model with PyTorch and Apple Silicon&apos;s Metal Performance Shaders on consumer hardware.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="context-band">
+        <div class="page context-grid">
+          <p class="eyebrow">The other side</p>
+          <div>
+            <h2>See the systems these notes came from.</h2>
+            <p>The portfolio is the concise view: live products, research programs, and the evidence behind them. The writing keeps the path visible.</p>
+            <a class="text-link" href="portfolio/index.html">Go to the portfolio ↗</a>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Let's Connect</h3>
-                    <div class="social-icons">
-                        <a href="https://www.linkedin.com/in/abinashkarki/" target="_blank" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="https://github.com/abinashkarki" target="_blank" aria-label="GitHub">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                </div>
-                <p class="copyright">
-                    © 2024 Abinash Karki. Built with curiosity and AI assistance.
-                </p>
-            </div>
+    <footer class="site-footer canonical-footer">
+      <div class="footer-inner">
+        <span>© <span data-year></span> Abinash Karki · Sydney, Australia</span>
+        <div class="footer-links">
+          <a href="portfolio/index.html">Work ↗</a>
+          <a href="index.html#articles">Writing</a>
+          <a href="portfolio/about.html">About</a>
+          <a href="portfolio/resume.html">Résumé</a>
+          <a href="https://github.com/abinashkarki" target="_blank" rel="noopener">GitHub ↗</a>
+          <a href="https://www.linkedin.com/in/abinashkarki/" target="_blank" rel="noopener">LinkedIn ↗</a>
         </div>
+      </div>
     </footer>
-
-    <!-- Scripts -->
-    <script src="script.js"></script>
-    <script>
-        // Scroll reveal animation
-        const revealElements = document.querySelectorAll('.reveal');
-        
-        const revealOnScroll = () => {
-            revealElements.forEach(el => {
-                const elementTop = el.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (elementTop < windowHeight - 100) {
-                    el.classList.add('visible');
-                }
-            });
-        };
-        
-        window.addEventListener('scroll', revealOnScroll);
-        window.addEventListener('load', revealOnScroll);
-        
-        // Header scroll effect
-        const header = document.querySelector('header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-        
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
-</body>
+    <script src="portfolio/assets/js/main.js"></script>
+  </body>
 </html>
