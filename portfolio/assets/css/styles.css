@@ -1672,8 +1672,8 @@ h4 {
 .capability-band {
   overflow: hidden;
   border-block: 1px solid var(--line);
-  background: var(--green);
-  color: #0e3165;
+  background: var(--band);
+  color: var(--muted);
 }
 
 .capability-band > div {
@@ -1689,6 +1689,7 @@ h4 {
 
 .capability-band span {
   padding-inline: 14px;
+  color: var(--green);
 }
 
 .portfolio-work {
@@ -1704,7 +1705,6 @@ h4 {
 }
 
 .portfolio-section-head h2,
-.supporting-system h2,
 .writing-grid h2,
 .context-grid h2 {
   font-size: clamp(48px, 5.8vw, 82px);
@@ -1753,8 +1753,7 @@ h4 {
   padding: 34px;
 }
 
-.deployment-grid h3,
-.supporting-system-card h3 {
+.deployment-grid h3 {
   margin-top: 54px;
   font-size: clamp(42px, 5vw, 70px);
   line-height: 0.96;
@@ -1809,8 +1808,7 @@ h4 {
   text-transform: uppercase;
 }
 
-.deployment-grid .card-footer,
-.supporting-system-card .card-footer {
+.deployment-grid .card-footer {
   color: var(--green);
   font: 700 10px/1 "SFMono-Regular", Consolas, monospace;
   text-transform: uppercase;
@@ -1855,45 +1853,11 @@ h4 {
   font-size: 14px;
 }
 
-.supporting-system {
-  padding-block: 130px;
-}
-
-.supporting-system-card {
-  display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  border: 1px solid var(--line);
-  border-top: 4px solid var(--violet);
-  background: var(--paper);
-  text-decoration: none;
-}
-
-.supporting-system-card > div {
-  padding: 34px;
-}
-
-.supporting-system-card > div > p:not(.project-meta) {
-  color: var(--muted);
-}
-
-.supporting-system-card figure {
-  margin: 0;
-  min-height: 440px;
-  overflow: hidden;
-  border-left: 1px solid var(--line);
-}
-
-.supporting-system-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 .writing-band {
   padding-block: 92px;
-  border-block: 1px solid rgba(14, 49, 101, 0.3);
-  background: var(--green);
-  color: #0e3165;
+  border-block: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
 }
 
 .writing-grid,
@@ -1904,7 +1868,7 @@ h4 {
 }
 
 .writing-band .eyebrow {
-  color: #0e3165;
+  color: var(--green);
 }
 
 .writing-grid > div > p,
@@ -1919,8 +1883,8 @@ h4 {
   justify-content: space-between;
   min-width: 280px;
   padding: 15px 0;
-  border-block: 1px solid rgba(14, 49, 101, 0.45);
-  color: #0e3165;
+  border-block: 1px solid var(--line);
+  color: var(--green);
   font: 700 11px/1.2 "SFMono-Regular", Consolas, monospace;
   text-decoration: none;
   text-transform: uppercase;
@@ -1929,8 +1893,8 @@ h4 {
 .writing-link:hover,
 .writing-link:focus-visible {
   padding-inline: 12px;
-  background: #0e3165;
-  color: var(--green);
+  background: var(--green);
+  color: #0e3165;
 }
 
 .context-band {
@@ -1945,13 +1909,11 @@ h4 {
 
 @media (max-width: 1000px) {
   .blueprint-hero-grid,
-  .deployment-grid .work-card,
-  .supporting-system-card {
+  .deployment-grid .work-card {
     grid-template-columns: 1fr;
   }
 
-  .deployment-grid .work-card figure,
-  .supporting-system-card figure {
+  .deployment-grid .work-card figure {
     min-height: 420px;
     border-right: 0;
     border-left: 0;
@@ -2073,7 +2035,6 @@ h4 {
   }
 
   .portfolio-work,
-  .supporting-system,
   .method-band .page {
     padding-block: 72px;
   }
@@ -2086,7 +2047,6 @@ h4 {
   }
 
   .portfolio-section-head h2,
-  .supporting-system h2,
   .writing-grid h2,
   .context-grid h2 {
     font-size: clamp(42px, 12vw, 60px);
@@ -2096,18 +2056,15 @@ h4 {
     gap: 72px;
   }
 
-  .deployment-grid .work-card figure,
-  .supporting-system-card figure {
+  .deployment-grid .work-card figure {
     min-height: clamp(240px, 78vw, 320px);
   }
 
-  .deployment-grid .work-card-body,
-  .supporting-system-card > div {
+  .deployment-grid .work-card-body {
     padding: 24px 18px 26px;
   }
 
-  .deployment-grid h3,
-  .supporting-system-card h3 {
+  .deployment-grid h3 {
     margin-top: 40px;
     font-size: clamp(38px, 12vw, 48px);
   }
