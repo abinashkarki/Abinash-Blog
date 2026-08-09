@@ -1,15 +1,15 @@
 # Abinash Karki Portfolio Site
 
-Static portfolio release candidate, rewritten around inspectable evidence for applied AI roles.
+Canonical static portfolio for the GitHub Pages site, rewritten around inspectable evidence for Forward Deployed AI roles.
 
 ## Run
 
 ```bash
-cd /Users/hi/Documents/hub/portfolio-site
+cd /path/to/Abinash-Blog
 python3 -m http.server 8788
 ```
 
-Open `http://127.0.0.1:8788`.
+Open `http://127.0.0.1:8788/portfolio/`.
 
 ## Structure
 
@@ -23,7 +23,14 @@ Open `http://127.0.0.1:8788`.
 
 ## Current Checkpoint
 
-Updated on 2026-06-19:
+Updated on 2026-08-09:
+
+- Consolidated the public presence into one canonical portfolio plus the existing article archive.
+- Rebuilt the portfolio homepage around Forward Deployed AI positioning, deployment evidence, and the blueprint visual system.
+- Updated the Nepal Energy case study to the broader TransparentGov framing and the current 418-page inventory.
+- Preserved the four detailed case-study URLs and added canonical metadata, social metadata, skip links, and complete mobile navigation.
+- Converted `writing.html` into a compatibility redirect to the canonical blog article archive.
+- Verified all portfolio pages at desktop and 390px mobile width with no horizontal overflow, missing images, or browser console errors.
 
 - Homepage repositioned around reliable AI systems, measurable task performance, and safe degradation.
 - Added a repository-backed evidence strip and replaced project-volume metrics with benchmark, test, telemetry, and recovery evidence.
@@ -56,9 +63,8 @@ Visuals are copied from local project artifacts:
 - Nepal Energy figures from generated project figures.
 - Cross-Modal figures from the Scale250 manuscript figure pack.
 
-## Remaining Before Deployment
+## Publication
 
-- Perform a final human copy and visual review.
-- Decide on the deployment target and canonical domain.
-- Replace the HTML résumé with a downloadable PDF only after a defensible PDF is generated from the same evidence base.
-- Add analytics only if a privacy-respecting measurement plan is defined.
+GitHub Pages publishes the repository’s `main` branch at
+`https://abinashkarki.github.io/Abinash-Blog/`. The canonical portfolio entry is
+`/portfolio/`; writing remains at `/index.html#articles`.

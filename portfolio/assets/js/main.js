@@ -1,4 +1,5 @@
 const links = document.querySelectorAll('a[href^="#"]');
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 links.forEach((link) => {
   link.addEventListener("click", (event) => {
@@ -7,7 +8,7 @@ links.forEach((link) => {
     const target = document.querySelector(targetId);
     if (!target) return;
     event.preventDefault();
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
   });
 });
 
@@ -35,5 +36,11 @@ if (navToggle && navLinks) {
       navLinks.classList.remove("active");
     });
   });
-}
 
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || navToggle.getAttribute("aria-expanded") !== "true") return;
+    navToggle.setAttribute("aria-expanded", "false");
+    navLinks.classList.remove("active");
+    navToggle.focus();
+  });
+}
